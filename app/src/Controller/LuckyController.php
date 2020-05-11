@@ -7,14 +7,15 @@ namespace App\Controller;
 // ...
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class LuckyController.
  */
-class LuckyController
+class LuckyController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/liczba")
      */
 
     public function number(): Response
