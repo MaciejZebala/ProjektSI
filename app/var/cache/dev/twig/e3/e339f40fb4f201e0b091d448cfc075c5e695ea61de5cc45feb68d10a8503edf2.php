@@ -171,6 +171,6 @@ class __TwigTemplate_825e0b902268521b76e4631060672599dd85d9d9b376443f923a57165c9
         {%- endfor -%}
     </pre>
 {% endif %}
-", "@Doctrine/Collector/explain.html.twig", "C:\\xampp\\htdocs\\ProjektSI\\app\\vendor\\doctrine\\doctrine-bundle\\Resources\\views\\Collector\\explain.html.twig");
+", "@Doctrine/Collector/explain.html.twig", "C:\\xampp\\htdocs\\ProjektSI\\ProjectSI\\app\\vendor\\doctrine\\doctrine-bundle\\Resources\\views\\Collector\\explain.html.twig");
     }
 }

@@ -95,6 +95,6 @@ class __TwigTemplate_e11c8f5aacc759fd052c318639f2fae29d0b5ccf13989203199acec878e
         ], \$date_pattern) ?>
     </div>
 <?php endif ?>
-", "@Framework/Form/date_widget.html.php", "C:\\xampp\\htdocs\\ProjektSI\\app\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\date_widget.html.php");
+", "@Framework/Form/date_widget.html.php", "C:\\xampp\\htdocs\\ProjektSI\\ProjectSI\\app\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\date_widget.html.php");
     }
 }

@@ -75,6 +75,6 @@ class __TwigTemplate_2a5a95f5e755aeb25bf0306a1b6c5a7d385b253ece13dccda073e7a81d7
         <?php endforeach; ?>
     </ul>
 <?php endif ?>
-", "@Framework/Form/form_errors.html.php", "C:\\xampp\\htdocs\\ProjektSI\\app\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\form_errors.html.php");
+", "@Framework/Form/form_errors.html.php", "C:\\xampp\\htdocs\\ProjektSI\\ProjectSI\\app\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\form_errors.html.php");
     }
 }
