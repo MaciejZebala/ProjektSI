@@ -63,6 +63,6 @@ class __TwigTemplate_ced76110ee63ec9d127f70606dbfd068fd71c47252d661e86bf9b6f7706
     public function getSourceContext()
     {
         return new Source("<?php echo \$view['form']->block(\$form, 'form_widget_simple', ['type' => isset(\$type) ? \$type : 'text']) ?>
-", "@Framework/Form/number_widget.html.php", "C:\\xampp\\htdocs\\ProjektSI\\ProjectSI\\app\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\number_widget.html.php");
+", "@Framework/Form/number_widget.html.php", "C:\\xampp\\htdocs\\ProjektSI\\app\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\number_widget.html.php");
     }
 }

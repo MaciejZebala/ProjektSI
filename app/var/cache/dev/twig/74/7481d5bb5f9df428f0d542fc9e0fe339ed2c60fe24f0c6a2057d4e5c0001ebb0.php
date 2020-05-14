@@ -77,6 +77,6 @@ class __TwigTemplate_380601eb971b2f7e183d9cad6766a30a2043ab4b684dc989e2db56484c3
     : \$view['form']->humanize(\$name); } ?>
 <label<?php if (\$label_attr) { echo ' '.\$view['form']->block(\$form, 'attributes', ['attr' => \$label_attr]); } ?>><?php echo \$view->escape(false !== \$translation_domain ? \$view['translator']->trans(\$label, \$label_translation_parameters, \$translation_domain) : \$label) ?></label>
 <?php endif ?>
-", "@Framework/Form/form_label.html.php", "C:\\xampp\\htdocs\\ProjektSI\\ProjectSI\\app\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\form_label.html.php");
+", "@Framework/Form/form_label.html.php", "C:\\xampp\\htdocs\\ProjektSI\\app\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\form_label.html.php");
     }
 }
