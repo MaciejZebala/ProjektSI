@@ -2,22 +2,24 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Event;
 use App\Repository\EventRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route(
- *     "/event",
- *     name="event",
- * )
+ * Class EventController
+ *
+ * @Route("/event")
+ *
  */
 
 class EventController extends AbstractController
 {
-    /**Index Action
+    /**
+     *
+     * Index Action
      *
      * @param \App\Repository\EventRepository $eventRepository Event repository
      *
@@ -32,29 +34,29 @@ class EventController extends AbstractController
     public function index(EventRepository $eventRepository): Response
     {
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAll()
-        ]);
-    }
-
-    /**
-     * Show action.
-     *
-     * @param \App\Entity\Event $event Event entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="event_show",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
-
-    public function show(Event $event): Response
-    {
-        return $this->render('event/show.html.twig', [
-            'event' => $event
+            'events' => $eventRepository->findAll(),
         ]);
     }
 }
+
+//    /**
+//     * Show action.
+//     *
+//     * @param \App\Entity\Event $event Event entity
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+//     *
+//     * @Route(
+//     *     "/{id}",
+//     *     methods={"GET"},
+//     *     name="event_show",
+//     *     requirements={"id": "[1-9]\d*"},
+//     * )
+//     */
+//    public function show(Event $event): Response
+//    {
+//        return $this->render('event/show.html.twig', [
+//            'event' => $event
+//        ]);
+//    }
+//}
