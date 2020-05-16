@@ -6,8 +6,9 @@ use DateTimeInterface;
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+//@ORM\Entity(repositoryClass=EventRepository::class)
 /**
- * @ORM\Entity(repositoryClass=EventRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @ORM\Table("events")
  */
 class Event

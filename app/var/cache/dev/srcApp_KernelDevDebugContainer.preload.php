@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/Container9NDZ40l/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerIIUPoxI/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -30,7 +30,6 @@ $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\EventListener\ResolveControllerNameSubscriber';
 $classes[] = 'Symfony\Component\HttpFoundation\RequestMatcher';
 $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
-$classes[] = 'App\Controller\LuckyController';
 $classes[] = 'App\Repository\EventRepository';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController';
@@ -265,7 +264,6 @@ $classes[] = 'Symfony\Bridge\Monolog\Command\ServerLogCommand';
 $classes[] = 'Symfony\Bridge\Monolog\Handler\ConsoleHandler';
 $classes[] = 'Monolog\Handler\StreamHandler';
 $classes[] = 'Monolog\Processor\PsrLogMessageProcessor';
-$classes[] = 'Symfony\Component\DependencyInjection\ParameterBag\ContainerBag';
 $classes[] = 'Symfony\Component\HttpKernel\Profiler\Profiler';
 $classes[] = 'Symfony\Component\HttpKernel\Profiler\FileProfilerStorage';
 $classes[] = 'Symfony\Component\HttpKernel\DataCollector\TimeDataCollector';
@@ -292,6 +290,7 @@ $classes[] = 'Symfony\Component\PropertyInfo\Extractor\SerializerExtractor';
 $classes[] = 'Symfony\Component\HttpFoundation\RequestStack';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\ResponseListener';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\Routing\Router';
+$classes[] = 'Symfony\Component\DependencyInjection\ParameterBag\ContainerBag';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer';
 $classes[] = 'Symfony\Component\Routing\RequestContext';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\RouterListener';
