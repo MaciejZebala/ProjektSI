@@ -1786,3 +1786,4 @@
 [2020-05-17 14:51:43] doctrine.DEBUG: SELECT DISTINCT e0_.id AS id_0, e0_.date AS date_1 FROM events e0_ ORDER BY e0_.date DESC LIMIT 3 [] []
 [2020-05-17 14:51:43] doctrine.DEBUG: SELECT e0_.id AS id_0, e0_.date AS date_1, e0_.title AS title_2 FROM events e0_ WHERE e0_.id IN (?) ORDER BY e0_.date DESC [[10,2,4]] []
 [2020-05-17 14:51:43] security.INFO: Populated the TokenStorage with an anonymous Token. [] []
+[2020-05-17 15:44:24] php.INFO: User Deprecated: Using the WebserverBundle is deprecated since Symfony 4.4. The new Symfony local server has more features, you can use it instead. {"exception":"[object] (ErrorException(code: 0): User Deprecated: Using the WebserverBundle is deprecated since Symfony 4.4. The new Symfony local server has more features, you can use it instead. at C:\\xampp\\htdocs\\ProjektSI\\app\\vendor\\symfony\\web-server-bundle\\WebServerBundle.php:23)"} []

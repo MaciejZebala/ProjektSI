@@ -68,11 +68,10 @@ class Event
      *
      * @param DateTimeInterface $date Date
      */
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface $date): void
     {
         $this->date = $date;
 
-        return $this;
     }
 
     /**
@@ -91,10 +90,9 @@ class Event
      * @param string $title Title
      */
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
 
-        return $this;
     }
 }
