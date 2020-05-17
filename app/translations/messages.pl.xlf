@@ -34,6 +34,18 @@
                 <source>title_event_list</source>
                 <target>Lista Wydarzeń</target>
             </trans-unit>
+            <trans-unit id="title_event_details">
+                <source>title_event_details</source>
+                <target>Detale Wydarzenia #%id%</target>
+            </trans-unit>
+            <trans-unit id="action_view">
+                <source>action_view</source>
+                <target>Podgląd</target>
+            </trans-unit>
+            <trans-unit id="action_back">
+                <source>action_back</source>
+                <target>Wróć</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

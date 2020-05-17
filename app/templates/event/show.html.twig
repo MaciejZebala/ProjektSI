@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_event_details'|trans({'%id%': event.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_event_details'|trans({'%id%': event.id|default('')}) }}</h1>
+    {% if event is defined and event|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label_id'|trans }}</dt>
+            <dd>{{ event.id }}</dd>
+            <dt>{{ 'label_date'|trans }}</dt>
+            <dd>{{ event.date|date('Y/m/d') }}</dd>
+            <dt>{{ 'label_title'|trans }}</dt>
+            <dd>{{ event.title }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('event_index') }}" title="{{ 'action_back'|trans }}">
+                {{ 'action_back'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

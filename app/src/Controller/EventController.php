@@ -37,26 +37,25 @@ class EventController extends AbstractController
             'events' => $eventRepository->findAll(),
         ]);
     }
-}
 
-//    /**
-//     * Show action.
-//     *
-//     * @param \App\Entity\Event $event Event entity
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-//     *
-//     * @Route(
-//     *     "/{id}",
-//     *     methods={"GET"},
-//     *     name="event_show",
-//     *     requirements={"id": "[1-9]\d*"},
-//     * )
-//     */
-//    public function show(Event $event): Response
-//    {
-//        return $this->render('event/show.html.twig', [
-//            'event' => $event
-//        ]);
-//    }
-//}
+    /**
+     * Show action.
+     *
+     * @param \App\Entity\Event $event Event entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/{id}",
+     *     methods={"GET"},
+     *     name="event_show",
+     *     requirements={"id": "[1-9]\d*"},
+     * )
+     */
+    public function show(Event $event): Response
+    {
+        return $this->render('event/show.html.twig', [
+            'event' => $event
+        ]);
+    }
+}
