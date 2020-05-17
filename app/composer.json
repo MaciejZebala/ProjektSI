@@ -8,6 +8,7 @@
         "doctrine/doctrine-bundle": "*",
         "doctrine/doctrine-migrations-bundle": "*",
         "doctrine/orm": "*",
+        "knplabs/knp-paginator-bundle": "^5.2",
         "rackspace/php-opencloud": "dev-master",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",

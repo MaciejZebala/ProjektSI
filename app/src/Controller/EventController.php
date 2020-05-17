@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Repository\EventRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,10 +33,14 @@ class EventController extends AbstractController
      *     name="event_index",
      *     )
      */
-    public function index(EventRepository $eventRepository): Response
+    public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
     {
+        $page = $request->query->getInt('page', 1);
+
+        $pagination = $paginator->paginate($eventRepository->queryAll(), $page, EventRepository::PAGINATOR_ITEMS_PER_PAGE);
+
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAll(),
+            'pagination' => $pagination
         ]);
     }
 

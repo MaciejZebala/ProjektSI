@@ -3,7 +3,7 @@
 {% block title %}{{'title_event_list'|trans}}{% endblock %}
 
 {% block body %}
-    {% if events is defined and events|length %}
+    {% if pagination is defined and pagination.items|length %}
         <table class="table table-striped">
             <thead>
             <tr>
@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for event in events %}
+            {% for event in pagination.items %}
                 <tr>
                     <td>{{ event.id }}</td>
                     <td>{{ event.date|date('Y/m/d') }}</td>
@@ -28,6 +28,9 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     {% else %}
         <p>
             {{ 'message_empty_list'|trans }}
