@@ -47,6 +47,8 @@ class EventRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select('event', 'category')
+            ->join('event.category', 'category')
             ->orderBy('event.date', 'DESC');
     }
 

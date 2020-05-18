@@ -11,6 +11,7 @@
                 <th>{{knp_pagination_sortable(pagination, 'label_id'|trans, 'event.id')}}</th>
                 <th>{{knp_pagination_sortable(pagination, 'label_date'|trans, 'event.date')}}</th>
                 <th>{{knp_pagination_sortable(pagination, 'label_title'|trans, 'event.title')}}</th>
+                <th>{{knp_pagination_sortable(pagination, 'label_category'|trans, 'category.title')}}</th>
                 <th>{{'label_actions'|trans}}</th>
             </tr>
             </thead>
@@ -20,6 +21,7 @@
                     <td>{{ event.id }}</td>
                     <td>{{ event.date|date('Y/m/d') }}</td>
                     <td>{{ event.title }}</td>
+                    <td>{{ event.category.title }}</td>
                     <td>
                         <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}

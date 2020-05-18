@@ -339,6 +339,9 @@
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EventController"/>
       </call>
     </service>
+    <service id="App\DataFixtures\CategoryFixtures" class="App\DataFixtures\CategoryFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
     <service id="App\DataFixtures\EventFixtures" class="App\DataFixtures\EventFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
@@ -4794,6 +4797,10 @@
       <call method="addFixtures">
         <argument type="collection">
           <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\CategoryFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
             <argument key="fixture" type="service" id="App\DataFixtures\EventFixtures"/>
             <argument key="groups" type="collection"/>
           </argument>
@@ -4846,6 +4853,8 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EventController" class="App\Controller\EventController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EventController" class="App\Controller\EventController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\EventController" class="App\Controller\EventController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\CategoryFixtures" class="App\DataFixtures\CategoryFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\CategoryFixtures" class="App\DataFixtures\CategoryFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\EventFixtures" class="App\DataFixtures\EventFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\EventFixtures" class="App\DataFixtures\EventFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" abstract="true"/>
