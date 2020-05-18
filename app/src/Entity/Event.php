@@ -43,6 +43,12 @@ class Event
     private $title;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
      * Getter for Id
      *
      * @return int|null
@@ -94,5 +100,17 @@ class Event
     {
         $this->title = $title;
 
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }
