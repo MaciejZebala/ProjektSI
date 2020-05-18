@@ -4,12 +4,13 @@
 
 {% block body %}
     {% if pagination is defined and pagination.items|length %}
+        <h1>{{ 'title_event_list'|trans }}</h1>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{'label_id'|trans}}</th>
-                <th>{{'label_date'|trans}}</th>
-                <th>{{'label_title'|trans}}</th>
+                <th>{{knp_pagination_sortable(pagination, 'label_id'|trans, 'event.id')}}</th>
+                <th>{{knp_pagination_sortable(pagination, 'label_date'|trans, 'event.date')}}</th>
+                <th>{{knp_pagination_sortable(pagination, 'label_title'|trans, 'event.title')}}</th>
                 <th>{{'label_actions'|trans}}</th>
             </tr>
             </thead>
