@@ -16,6 +16,6 @@ if (!\class_exists(srcApp_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerThPlyBx\srcApp_KernelDevDebugContainer([
     'container.build_hash' => 'ThPlyBx',
-    'container.build_id' => '1cc71bfe',
-    'container.build_time' => 1590062273,
+    'container.build_id' => 'a811d231',
+    'container.build_time' => 1590073535,
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerThPlyBx');

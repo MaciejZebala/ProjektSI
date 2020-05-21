@@ -29,7 +29,7 @@ class Event
      *
      * @var DateTimeInterface
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $date;
 

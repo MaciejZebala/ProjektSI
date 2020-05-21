@@ -34,12 +34,16 @@ class HomePageController extends AbstractController
      */
     public function index(Request $request, EventRepository $eventRepository): Response
     {
-        $dateObj = new DateTime ("today");
+        $dateObj = date('Y-m-d');
+        $nextThreeDays = date("Y-m-d", strtotime("+3 day"));
 
-        $currentEvent = $eventRepository->getCurrentEvents($dateObj);
+        $currentEvent = $eventRepository->getCurrentEvents($dateObj)->getQuery()->getResult();
+        $comingEvent = $eventRepository->getComingEvents($dateObj, $nextThreeDays)->getQuery()->getResult();
+
 
         return $this->render('home_page/index.html.twig', [
-            'currentEvents' => $currentEvent
+            'currentEvents' => $currentEvent,
+            'comingEvents' => $comingEvent
         ]);
     }
 }

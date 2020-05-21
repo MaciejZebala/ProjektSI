@@ -59,12 +59,26 @@ class EventRepository extends ServiceEntityRepository
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
 
-    public function getCurrentEvents($dataObj): QueryBuilder
+    public function getCurrentEvents($dateObj): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
-            ->select('event')
             ->andWhere('event.date = :date')
-            ->setParameter('date', $dataObj)
+            ->setParameter('date', $dateObj)
+            ->orderBy('event.date', 'DESC');
+    }
+
+    /**
+     * Query all records.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+
+    public function getComingEvents($dateObj, $nextThreeDays): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->andWhere('event.date > :date AND event.date <= :threeDays')
+            ->setParameter('date', $dateObj)
+            ->setParameter('threeDays', $nextThreeDays)
             ->orderBy('event.date', 'DESC');
     }
 
