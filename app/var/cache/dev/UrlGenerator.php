@@ -15,6 +15,8 @@ return [
     '_profiler_router' => [['token'], ['_controller' => 'web_profiler.controller.router::panelAction'], [], [['text', '/router'], ['variable', '/', '[^/]++', 'token'], ['text', '/_profiler']], [], []],
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token'], ['text', '/_profiler']], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token'], ['text', '/_profiler']], [], []],
+    'category_index' => [[], ['_controller' => 'App\\Controller\\CategoryController::index'], [], [['text', '/category/']], [], []],
+    'category_show' => [['id'], ['_controller' => 'App\\Controller\\CategoryController::show'], ['id' => '[1-9]\\d*'], [['variable', '/', '[1-9]\\d*', 'id'], ['text', '/category']], [], []],
     'event_index' => [[], ['_controller' => 'App\\Controller\\EventController::index'], [], [['text', '/event/']], [], []],
     'event_show' => [['id'], ['_controller' => 'App\\Controller\\EventController::show'], ['id' => '[1-9]\\d*'], [['variable', '/', '[1-9]\\d*', 'id'], ['text', '/event']], [], []],
 ];

@@ -5,6 +5,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -50,6 +51,7 @@ class EventRepository extends ServiceEntityRepository
             ->select('event', 'category')
             ->join('event.category', 'category')
             ->orderBy('event.date', 'DESC');
+
     }
 
     /**
@@ -59,6 +61,7 @@ class EventRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
+
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('event');

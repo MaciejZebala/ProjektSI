@@ -31,7 +31,9 @@
         "symfony/twig-pack": "^1.0",
         "symfony/validator": "4.4.*",
         "symfony/web-link": "4.4.*",
-        "symfony/yaml": "4.4.*"
+        "symfony/yaml": "4.4.*",
+        "twig/extra-bundle": "^3.0",
+        "twig/intl-extra": "^3.0"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
@@ -45,6 +47,7 @@
         "symfony/stopwatch": "*",
         "symfony/test-pack": "*",
         "symfony/twig-bundle": "*",
+        "symfony/var-dumper": "4.4.*",
         "symfony/web-profiler-bundle": "*",
         "symfony/web-server-bundle": "4.4.*"
     },

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{#    {{ 'title_event_details'|trans({'%id%': categories.id|default('')}) }}#}
+{% endblock %}
+
+{% block body %}
+{#    <h1>{{ 'title_event_details'|trans({'%id%': event.id|default('')}) }}</h1>#}
+    {% if pagination is defined and pagination.items|length %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{knp_pagination_sortable(pagination, 'label_title'|trans, 'event.title')}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in pagination.items %}
+                    <tr>
+                        <td>{{ event.title }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        <p>
+            <a href="{{ url('event_index') }}" title="{{ 'action_back'|trans }}">
+                {{ 'action_back'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
