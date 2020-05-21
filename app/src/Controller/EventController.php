@@ -37,7 +37,6 @@ class EventController extends AbstractController
     public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
     {
 
-
         $page = $request->query->getInt('page', 1);
 
         $pagination = $paginator->paginate($eventRepository->queryAll(), $page, EventRepository::PAGINATOR_ITEMS_PER_PAGE);

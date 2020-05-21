@@ -19,4 +19,5 @@ return [
     'category_show' => [['id'], ['_controller' => 'App\\Controller\\CategoryController::show'], ['id' => '[1-9]\\d*'], [['variable', '/', '[1-9]\\d*', 'id'], ['text', '/category']], [], []],
     'event_index' => [[], ['_controller' => 'App\\Controller\\EventController::index'], [], [['text', '/event/']], [], []],
     'event_show' => [['id'], ['_controller' => 'App\\Controller\\EventController::show'], ['id' => '[1-9]\\d*'], [['variable', '/', '[1-9]\\d*', 'id'], ['text', '/event']], [], []],
+    'home_page_index' => [[], ['_controller' => 'App\\Controller\\HomePageController::index'], [], [['text', '/home/']], [], []],
 ];

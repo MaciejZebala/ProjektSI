@@ -35,6 +35,7 @@ class CategoryController extends AbstractController
      */
     public function index(Request $request, CategoryRepository $categoryRepository, PaginatorInterface $paginator): Response
     {
+
         $page = $request->query->getInt('page', 1);
 
         $pagination = $paginator->paginate($categoryRepository->queryAll(), $page, CategoryRepository::PAGINATOR_ITEMS_PER_PAGE);

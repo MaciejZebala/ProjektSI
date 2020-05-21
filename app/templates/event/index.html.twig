@@ -18,6 +18,7 @@
             <tbody>
             {% for event in pagination.items %}
                 <tr>
+                    {{ dump(date()) }}
                     <td>{{ event.id }}</td>
                     <td>{{ event.date|date('Y/m/d') }}</td>
                     <td>{{ event.title }}</td>
