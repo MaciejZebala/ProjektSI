@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{'title_event_list'|trans}}{% endblock %}
+{% block title %}{{'title_category_list'|trans}}{% endblock %}
 
 {% block body %}
     {% if pagination is defined and pagination.items|length %}
-        <h1>{{ 'title_event_list'|trans }}</h1>
-        <table class="table table-striped">
-            <thead>
+        <h1>{{ 'title_category_list'|trans }}</h1>
+        <table class="table table-hover table-dark">
+            <thead class="thead-light">
             <tr>
                 <th>{{knp_pagination_sortable(pagination, 'label_id'|trans, 'category.id')}}</th>
                 <th>{{knp_pagination_sortable(pagination, 'label_title'|trans, 'category.title')}}</th>
@@ -27,7 +27,7 @@
             {% endfor %}
             </tbody>
         </table>
-        <div class="navigation text-center">
+        <div class="navigation text-center d-flex justify-content-center">
             {{ knp_pagination_render(pagination) }}
         </div>
     {% else %}

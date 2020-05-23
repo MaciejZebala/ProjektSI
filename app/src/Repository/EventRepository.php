@@ -79,7 +79,7 @@ class EventRepository extends ServiceEntityRepository
             ->andWhere('event.date > :date AND event.date <= :threeDays')
             ->setParameter('date', $dateObj)
             ->setParameter('threeDays', $nextThreeDays)
-            ->orderBy('event.date', 'DESC');
+            ->orderBy('event.date', 'ASC');
     }
 
     /**

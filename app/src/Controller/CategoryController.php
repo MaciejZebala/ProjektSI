@@ -64,8 +64,7 @@ class CategoryController extends AbstractController
     {
         $pagination = $paginator->paginate(
             $category->getEvents(),
-            $request->query->getInt('page', 1),
-            3
+            $request->query->getInt('page', 1)
         );
         return $this->render(
             'category/show.html.twig',
