@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -30,18 +32,28 @@ class HomePageController extends AbstractController
      *     name="home_page_index",
      *     )
      */
-    public function index(EventRepository $eventRepository): Response
+    public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
     {
         $dateObj = date('Y-m-d');
         $nextThreeDays = date("Y-m-d", strtotime("+3 day"));
 
-        $currentEvent = $eventRepository->getCurrentEvents($dateObj)->getQuery()->getResult();
-        $comingEvent = $eventRepository->getComingEvents($dateObj, $nextThreeDays)->getQuery()->getResult();
+        $paginationCurrent = $paginator->paginate(
+            $eventRepository->getCurrentEvents($dateObj),
+            $request->query->getInt('page', 1)
+        );
+
+        $paginationComing = $paginator->paginate(
+            $eventRepository->getComingEvents($dateObj, $nextThreeDays),
+            $request->query->getInt('page', 1)
+        );
+
+//        $currentEvent = $eventRepository->getCurrentEvents($dateObj)->getQuery()->getResult();
+//        $comingEvent = $eventRepository->getComingEvents($dateObj, $nextThreeDays)->getQuery()->getResult();
 
 
         return $this->render('home_page/index.html.twig', [
-            'currentEvents' => $currentEvent,
-            'comingEvents' => $comingEvent
+            'paginationComing' => $paginationComing,
+            'paginationCurrent' => $paginationCurrent
         ]);
     }
 }
