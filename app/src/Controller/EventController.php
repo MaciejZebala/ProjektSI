@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Twig\Extra\Intl\IntlExtension;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use Knp\Component\Pager\PaginatorInterface;

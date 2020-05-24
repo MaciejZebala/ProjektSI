@@ -5119,6 +5119,19 @@
         <argument key="paginator" type="service" id="knp_paginator"/>
       </argument>
     </service>
+    <service id=".service_locator.CvFKf6j" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="categoryRepository" type="service" id="App\Repository\CategoryRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.linS56O" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="category" type="service" id=".errored..service_locator.linS56O.App\Entity\Category"/>
+        <argument key="categoryRepository" type="service" id="App\Repository\CategoryRepository"/>
+      </argument>
+    </service>
     <service id=".service_locator.ir_9f0E" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5132,14 +5145,20 @@
         <argument key="event" type="service" id=".errored..service_locator.1hKwnw8.App\Entity\Event"/>
       </argument>
     </service>
-    <service id=".service_locator.RCV8mJV" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.nq99xnF" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Controller\CategoryController::create" type="service" id=".service_locator.CvFKf6j"/>
+        <argument key="App\Controller\CategoryController::delete" type="service" id=".service_locator.linS56O"/>
+        <argument key="App\Controller\CategoryController::edit" type="service" id=".service_locator.linS56O"/>
         <argument key="App\Controller\CategoryController::index" type="service" id=".service_locator..vCYKbM"/>
         <argument key="App\Controller\CategoryController::show" type="service" id=".service_locator.WmSvgoR"/>
         <argument key="App\Controller\EventController::index" type="service" id=".service_locator.ir_9f0E"/>
         <argument key="App\Controller\EventController::show" type="service" id=".service_locator.1hKwnw8"/>
         <argument key="App\Controller\HomePageController::index" type="service" id=".service_locator.ir_9f0E"/>
+        <argument key="App\Controller\CategoryController:create" type="service" id=".service_locator.CvFKf6j"/>
+        <argument key="App\Controller\CategoryController:delete" type="service" id=".service_locator.linS56O"/>
+        <argument key="App\Controller\CategoryController:edit" type="service" id=".service_locator.linS56O"/>
         <argument key="App\Controller\CategoryController:index" type="service" id=".service_locator..vCYKbM"/>
         <argument key="App\Controller\CategoryController:show" type="service" id=".service_locator.WmSvgoR"/>
         <argument key="App\Controller\EventController:index" type="service" id=".service_locator.ir_9f0E"/>
@@ -5591,12 +5610,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.RCV8mJV"/>
+      <argument type="service" id=".service_locator.nq99xnF"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.RCV8mJV"/>
+      <argument type="service" id=".service_locator.nq99xnF"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -5607,6 +5626,7 @@
       <factory class="Symfony\Component\HttpClient\HttpClient" method="create"/>
     </service>
     <service id=".errored..service_locator.WmSvgoR.App\Entity\Category" class="App\Entity\Category"/>
+    <service id=".errored..service_locator.linS56O.App\Entity\Category" class="App\Entity\Category"/>
     <service id=".errored..service_locator.1hKwnw8.App\Entity\Event" class="App\Entity\Event"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.e_Vkd5X"/>
@@ -5988,7 +6008,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.RCV8mJV"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.nq99xnF"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
