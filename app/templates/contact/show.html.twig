@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_event_details'|trans({'%id%': contact.id}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_event_details'|trans({'%id%': contact.id|default('')}) }}</h1>
+    {% if contact is defined and contact|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label_id'|trans }}</dt>
+            <dd>{{ contact.id }}</dd>
+            <dt>{{ 'label_date'|trans }}</dt>
+            <dd>{{ contact.name }}</dd>
+            <dt>{{ 'label_title'|trans }}</dt>
+            <dd>{{ contact.surname }}</dd>
+            <dt>{{ 'label_title'|trans }}</dt>
+            <dd>{{ contact.phoneNumber }}</dd>
+            <dt>{{ 'label_title'|trans }}</dt>
+            <dd>{{ contact.email }}</dd>
+            {% if pagination is defined and pagination.items|length %}
+                <dt>{{ 'label_title'|trans }}</dt>
+                    {% for event in pagination.items %}
+                        <dd>{{ event.title }}</dd>
+                    {% endfor %}
+            {% else %}
+                <p>
+                    {{ 'message_item_not_found'|trans }}
+                </p>
+            {% endif %}
+        </dl>
+        <p>
+            <a href="{{ url('contact_index') }}" title="{{ 'action_back'|trans }}">
+                {{ 'action_back'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

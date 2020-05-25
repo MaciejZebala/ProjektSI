@@ -20,6 +20,8 @@ return [
     'category_create' => [[], ['_controller' => 'App\\Controller\\CategoryController::create'], [], [['text', '/category/create']], [], []],
     'category_edit' => [['id'], ['_controller' => 'App\\Controller\\CategoryController::edit'], ['id' => '[1-9]\\d*'], [['text', '/edit'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/category']], [], []],
     'category_delete' => [['id'], ['_controller' => 'App\\Controller\\CategoryController::delete'], ['id' => '[1-9]\\d*'], [['text', '/delete'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/category']], [], []],
+    'contact_index' => [[], ['_controller' => 'App\\Controller\\ContactController::index'], [], [['text', '/contact/']], [], []],
+    'contact_show' => [['id'], ['_controller' => 'App\\Controller\\ContactController::show'], ['id' => '[1-9]\\d*'], [['variable', '/', '[1-9]\\d*', 'id'], ['text', '/contact']], [], []],
     'event_index' => [[], ['_controller' => 'App\\Controller\\EventController::index'], [], [['text', '/event/']], [], []],
     'event_show' => [['id'], ['_controller' => 'App\\Controller\\EventController::show'], ['id' => '[1-9]\\d*'], [['variable', '/', '[1-9]\\d*', 'id'], ['text', '/event']], [], []],
     'home_page_index' => [[], ['_controller' => 'App\\Controller\\HomePageController::index'], [], [['text', '/home/']], [], []],
