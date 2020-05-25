@@ -6,6 +6,7 @@
 namespace App\Repository;
 
 use App\Controller\HomePageController;
+use App\Entity\Category;
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -80,6 +81,34 @@ class EventRepository extends ServiceEntityRepository
             ->setParameter('date', $dateObj)
             ->setParameter('threeDays', $nextThreeDays)
             ->orderBy('event.date', 'ASC');
+    }
+
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Event $event event entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Event $event): void
+    {
+        $this->_em->persist($event);
+        $this->_em->flush($event);
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Event $event Category entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Category $event): void
+    {
+        $this->_em->remove($event);
+        $this->_em->flush($event);
     }
 
     /**

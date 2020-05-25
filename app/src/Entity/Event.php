@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 //@ORM\Entity(repositoryClass=EventRepository::class)
@@ -47,6 +49,16 @@ class Event
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="events")
+     */
+    private $contact;
+
+    public function __construct()
+    {
+        $this->contact = new ArrayCollection();
+    }
 
     /**
      * Getter for Id
@@ -110,6 +122,32 @@ class Event
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContact(): Collection
+    {
+        return $this->contact;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contact->contains($contact)) {
+            $this->contact[] = $contact;
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contact->contains($contact)) {
+            $this->contact->removeElement($contact);
+        }
 
         return $this;
     }
