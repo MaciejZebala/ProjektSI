@@ -3,9 +3,9 @@
 {% block title %}{{'title_home_page'|trans}}{% endblock %}
 
 {% block body %}
-
+    <h1>{{ 'title_current_event'|trans }}</h1>
     {% if paginationCurrent is defined and paginationCurrent.items|length %}
-        <h1>{{ 'title_current_event'|trans }}</h1>
+
         <table class="table table-striped table-dark">
             <thead>
             <tr>
@@ -39,9 +39,9 @@
         </p>
     {% endif %}
 
-
+    <h1>{{ 'title_coming_event'|trans }}</h1>
     {% if paginationComing is defined and paginationComing.items|length %}
-        <h1>{{ 'title_coming_event'|trans }}</h1>
+
         <table class="table table-striped table-dark">
         <thead>
         <tr>

@@ -373,6 +373,9 @@
     <service id="App\Form\CategoryType" class="App\Form\CategoryType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\EventType" class="App\Form\EventType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -797,6 +800,7 @@
       </argument>
       <argument type="collection">
         <argument>App\Form\CategoryType</argument>
+        <argument>App\Form\EventType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
@@ -1131,7 +1135,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.idRDkqw"/>
+      <argument type="service" id=".service_locator._AWg3E4"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4914,6 +4918,8 @@
     <service id=".abstract.instanceof.App\DataFixtures\EventFixtures" class="App\DataFixtures\EventFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CategoryType" class="App\Form\CategoryType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CategoryType" class="App\Form\CategoryType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EventType" class="App\Form\EventType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\EventType" class="App\Form\EventType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ContactRepository" class="App\Repository\ContactRepository" autowire="true" abstract="true"/>
@@ -5185,7 +5191,20 @@
         <argument key="event" type="service" id=".errored..service_locator.1hKwnw8.App\Entity\Event"/>
       </argument>
     </service>
-    <service id=".service_locator.nFeVsEM" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.aCsDCZV" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="eventRepository" type="service" id="App\Repository\EventRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.XN5cGU9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="event" type="service" id=".errored..service_locator.XN5cGU9.App\Entity\Event"/>
+        <argument key="eventRepository" type="service" id="App\Repository\EventRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.7y6Bg.d" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CategoryController::create" type="service" id=".service_locator.CvFKf6j"/>
@@ -5195,6 +5214,9 @@
         <argument key="App\Controller\CategoryController::show" type="service" id=".service_locator.WmSvgoR"/>
         <argument key="App\Controller\ContactController::index" type="service" id=".service_locator.fglYq7m"/>
         <argument key="App\Controller\ContactController::show" type="service" id=".service_locator.EHqaCMv"/>
+        <argument key="App\Controller\EventController::create" type="service" id=".service_locator.aCsDCZV"/>
+        <argument key="App\Controller\EventController::delete" type="service" id=".service_locator.XN5cGU9"/>
+        <argument key="App\Controller\EventController::edit" type="service" id=".service_locator.XN5cGU9"/>
         <argument key="App\Controller\EventController::index" type="service" id=".service_locator.ir_9f0E"/>
         <argument key="App\Controller\EventController::show" type="service" id=".service_locator.1hKwnw8"/>
         <argument key="App\Controller\HomePageController::index" type="service" id=".service_locator.ir_9f0E"/>
@@ -5205,6 +5227,9 @@
         <argument key="App\Controller\CategoryController:show" type="service" id=".service_locator.WmSvgoR"/>
         <argument key="App\Controller\ContactController:index" type="service" id=".service_locator.fglYq7m"/>
         <argument key="App\Controller\ContactController:show" type="service" id=".service_locator.EHqaCMv"/>
+        <argument key="App\Controller\EventController:create" type="service" id=".service_locator.aCsDCZV"/>
+        <argument key="App\Controller\EventController:delete" type="service" id=".service_locator.XN5cGU9"/>
+        <argument key="App\Controller\EventController:edit" type="service" id=".service_locator.XN5cGU9"/>
         <argument key="App\Controller\EventController:index" type="service" id=".service_locator.ir_9f0E"/>
         <argument key="App\Controller\EventController:show" type="service" id=".service_locator.1hKwnw8"/>
         <argument key="App\Controller\HomePageController:index" type="service" id=".service_locator.ir_9f0E"/>
@@ -5269,10 +5294,11 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.idRDkqw" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator._AWg3E4" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\CategoryType" type="service" id="App\Form\CategoryType"/>
+        <argument key="App\Form\EventType" type="service" id="App\Form\EventType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FileType" type="service" id="form.type.file"/>
@@ -5661,12 +5687,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.nFeVsEM"/>
+      <argument type="service" id=".service_locator.7y6Bg.d"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.nFeVsEM"/>
+      <argument type="service" id=".service_locator.7y6Bg.d"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -5680,6 +5706,7 @@
     <service id=".errored..service_locator.linS56O.App\Entity\Category" class="App\Entity\Category"/>
     <service id=".errored..service_locator.EHqaCMv.App\Entity\Contact" class="App\Entity\Contact"/>
     <service id=".errored..service_locator.1hKwnw8.App\Entity\Event" class="App\Entity\Event"/>
+    <service id=".errored..service_locator.XN5cGU9.App\Entity\Event" class="App\Entity\Event"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.e_Vkd5X"/>
       <argument type="collection">
@@ -6060,7 +6087,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.nFeVsEM"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.7y6Bg.d"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

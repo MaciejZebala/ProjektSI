@@ -105,7 +105,7 @@ class EventRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Category $event): void
+    public function delete(Event $event): void
     {
         $this->_em->remove($event);
         $this->_em->flush($event);

@@ -17,6 +17,7 @@ return [
         '/category/create' => [[['_route' => 'category_create', '_controller' => 'App\\Controller\\CategoryController::create'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/contact' => [[['_route' => 'contact_index', '_controller' => 'App\\Controller\\ContactController::index'], null, ['GET' => 0], null, true, false, null]],
         '/event' => [[['_route' => 'event_index', '_controller' => 'App\\Controller\\EventController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/event/create' => [[['_route' => 'event_create', '_controller' => 'App\\Controller\\EventController::create'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/home' => [[['_route' => 'home_page_index', '_controller' => 'App\\Controller\\HomePageController::index'], null, ['GET' => 0], null, true, false, null]],
     ],
     [ // $regexpList
@@ -44,7 +45,11 @@ return [
                     .')'
                     .'|ontact/([1-9]\\d*)(*:269)'
                 .')'
-                .'|/event/([1-9]\\d*)(*:295)'
+                .'|/event/(?'
+                    .'|([1-9]\\d*)(*:298)'
+                    .'|([1-9]\\d*)/edit(*:321)'
+                    .'|([1-9]\\d*)/delete(*:346)'
+                .')'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes
@@ -59,8 +64,10 @@ return [
         218 => [[['_route' => 'category_edit', '_controller' => 'App\\Controller\\CategoryController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
         243 => [[['_route' => 'category_delete', '_controller' => 'App\\Controller\\CategoryController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
         269 => [[['_route' => 'contact_show', '_controller' => 'App\\Controller\\ContactController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        295 => [
-            [['_route' => 'event_show', '_controller' => 'App\\Controller\\EventController::show'], ['id'], ['GET' => 0], null, false, true, null],
+        298 => [[['_route' => 'event_show', '_controller' => 'App\\Controller\\EventController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        321 => [[['_route' => 'event_edit', '_controller' => 'App\\Controller\\EventController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
+        346 => [
+            [['_route' => 'event_delete', '_controller' => 'App\\Controller\\EventController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

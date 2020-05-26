@@ -24,5 +24,8 @@ return [
     'contact_show' => [['id'], ['_controller' => 'App\\Controller\\ContactController::show'], ['id' => '[1-9]\\d*'], [['variable', '/', '[1-9]\\d*', 'id'], ['text', '/contact']], [], []],
     'event_index' => [[], ['_controller' => 'App\\Controller\\EventController::index'], [], [['text', '/event/']], [], []],
     'event_show' => [['id'], ['_controller' => 'App\\Controller\\EventController::show'], ['id' => '[1-9]\\d*'], [['variable', '/', '[1-9]\\d*', 'id'], ['text', '/event']], [], []],
+    'event_create' => [[], ['_controller' => 'App\\Controller\\EventController::create'], [], [['text', '/event/create']], [], []],
+    'event_edit' => [['id'], ['_controller' => 'App\\Controller\\EventController::edit'], ['id' => '[1-9]\\d*'], [['text', '/edit'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/event']], [], []],
+    'event_delete' => [['id'], ['_controller' => 'App\\Controller\\EventController::delete'], ['id' => '[1-9]\\d*'], [['text', '/delete'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/event']], [], []],
     'home_page_index' => [[], ['_controller' => 'App\\Controller\\HomePageController::index'], [], [['text', '/home/']], [], []],
 ];

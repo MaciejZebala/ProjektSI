@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Form\EventType;
 use App\Repository\EventRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,5 +65,128 @@ class EventController extends AbstractController
         return $this->render('event/show.html.twig', [
             'event' => $event
         ]);
+    }
+
+    /**
+     * Create action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request         $request            HTTP request
+     * @param \App\Repository\EventRepository                   $eventRepository    Event repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response                           HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/create",
+     *     methods={"GET", "POST"},
+     *     name="event_create",
+     * )
+     */
+    public function create(Request $request, EventRepository $eventRepository): Response
+    {
+        $event = new Event();
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $eventRepository->save($event);
+
+            $this->addFlash('success', 'message_created_successfully');
+
+            return $this->redirectToRoute('event_index');
+
+        }
+
+        return $this->render(
+            'event/create.html.twig',
+            ['form' => $form->createView()]
+        );
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Entity\Event                         $event              Event entity
+     * @param \App\Repository\EventRepository           $eventRepository    Event repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response                   HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="event_edit",
+     * )
+     */
+    public function edit(Request $request, Event $event, EventRepository $eventRepository): Response
+    {
+        $form = $this->createForm(EventType::class, $event, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $eventRepository->save($event);
+
+            $this->addFlash('success', 'message_updated_successfully');
+
+            return $this->redirectToRoute('event_index');
+        }
+
+        return $this->render(
+            'event/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'event' => $event,
+            ]
+        );
+    }
+
+    /**
+     * Delete action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Entity\Event                         $event              Event entity
+     * @param \App\Repository\EventRepository           $eventRepository    Event repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response                   HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/delete",
+     *     methods={"GET", "DELETE"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="event_delete",
+     * )
+     */
+    public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
+    {
+        $form = $this->createForm(EventType::class, $event, ['method' => 'DELETE']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $eventRepository->delete($event);
+            $this->addFlash('success', 'message.deleted_successfully');
+
+            return $this->redirectToRoute('event_index');
+        }
+
+        return $this->render(
+            'event/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'event' => $event,
+            ]
+        );
     }
 }

@@ -28,11 +28,20 @@
                         <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
                         </a>
+                        <a href="{{ url('event_edit', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
+                            <span><i class="far fa-edit"></i></span>
+                        </a>
+                        <a href="{{ url('event_delete', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
+                            <span><i class="fas fa-trash-alt"></i></span>
+                        </a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        <div class="category">
+            <a href="{{ url('event_create') }}" title="Dodaj">Dodaj Kategorie</a>
+        </div>
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
