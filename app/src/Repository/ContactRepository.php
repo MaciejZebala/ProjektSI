@@ -49,6 +49,35 @@ class ContactRepository extends ServiceEntityRepository
     }
 
     /**
+     * Save record.
+     *
+     * @param \App\Entity\Contact $contact Contact entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Contact $contact): void
+    {
+        $this->_em->persist($contact);
+        $this->_em->flush($contact);
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Contact $contact Contact entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Contact $contact): void
+    {
+        $this->_em->remove($contact);
+        $this->_em->flush($contact);
+    }
+
+
+    /**
      * Get or create new query builder.
      *
      * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder

@@ -24,17 +24,20 @@
                     <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
                         <span><i class="fas fa-search"></i></span>
                     </a>
-{#                    <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_view'|trans }}">#}
-{#                        <span><i class="far fa-edit"></i></span>#}
-{#                    </a>#}
-{#                    <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_view'|trans }}">#}
-{#                        <span><i class="fas fa-trash-alt"></i></span>#}
-{#                    </a>#}
+                    <a href="{{ url('contact_edit', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
+                        <span><i class="far fa-edit"></i></span>
+                    </a>
+                    <a href="{{ url('contact_delete', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
+                        <span><i class="fas fa-trash-alt"></i></span>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
         </table>
+        <div class="category">
+            <a href="{{ url('contact_create') }}" title="Dodaj">Dodaj Kontakt</a>
+        </div>
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
