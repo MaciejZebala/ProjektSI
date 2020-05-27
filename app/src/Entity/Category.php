@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
     /**
-     * Primary key
+     * Primary key.
      *
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -51,7 +50,6 @@ class Category
      *
      * @return int|null Result
      */
-
     public function getId(): ?int
     {
         return $this->id;
@@ -62,7 +60,6 @@ class Category
      *
      * @return string|null Title
      */
-
     public function getTitle(): ?string
     {
         return $this->title;
@@ -73,7 +70,6 @@ class Category
      *
      * @param string $title Title
      */
-
     public function setTitle(string $title): void
     {
         $this->title = $title;

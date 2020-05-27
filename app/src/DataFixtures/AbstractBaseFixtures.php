@@ -10,11 +10,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-
 /**
  * Class AbstractBaseFixtures.
  */
-
 abstract class AbstractBaseFixtures extends Fixture
 {
     /**

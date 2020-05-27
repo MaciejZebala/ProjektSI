@@ -67,7 +67,7 @@ class ContactType extends AbstractType
             [
                 'label' => 'label_phone_number',
                 'required' => true,
-                'attr' => ['max_length'=>64],
+                'attr' => ['max_length' => 64],
             ]
         );
 
@@ -80,9 +80,9 @@ class ContactType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'class' => Event::class,
-                'choice_label' => function($event){
+                'choice_label' => function ($event) {
                     return $event->getTitle();
-                }
+                },
             ]
         );
     }

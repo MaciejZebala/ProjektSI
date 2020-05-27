@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use DateTimeInterface;
 use App\Repository\EventRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Event
 {
     /**
-     * Primary key
+     * Primary key.
      *
      * @var int
      *
@@ -27,7 +27,7 @@ class Event
     private $id;
 
     /**
-     * Date
+     * Date.
      *
      * @var DateTimeInterface
      *
@@ -36,7 +36,7 @@ class Event
     private $date;
 
     /**
-     * Title
+     * Title.
      *
      * @var string
      *
@@ -55,15 +55,19 @@ class Event
      */
     private $contact;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="event")
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->contact = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
-     * Getter for Id
-     *
-     * @return int|null
+     * Getter for Id.
      */
     public function getId(): ?int
     {
@@ -71,31 +75,25 @@ class Event
     }
 
     /**
-     * Getter for Date
-     *
-     * @return DateTimeInterface|null
+     * Getter for Date.
      */
-
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
     /**
-     * Setter for Date
+     * Setter for Date.
      *
      * @param DateTimeInterface $date Date
      */
     public function setDate(\DateTimeInterface $date): void
     {
         $this->date = $date;
-
     }
 
     /**
-     * Getter for Title
-     *
-     * @return string|null
+     * Getter for Title.
      */
     public function getTitle(): ?string
     {
@@ -103,15 +101,13 @@ class Event
     }
 
     /**
-     * Setter for Title
+     * Setter for Title.
      *
      * @param string $title Title
      */
-
     public function setTitle(string $title): void
     {
         $this->title = $title;
-
     }
 
     public function getCategory(): ?Category
@@ -147,6 +143,34 @@ class Event
     {
         if ($this->contact->contains($contact)) {
             $this->contact->removeElement($contact);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+            $tag->removeEvent($this);
         }
 
         return $this;

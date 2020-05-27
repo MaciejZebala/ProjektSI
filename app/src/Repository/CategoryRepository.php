@@ -15,7 +15,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
-
     /**
      * Items per page.
      *
@@ -29,9 +28,9 @@ class CategoryRepository extends ServiceEntityRepository
 
     /**
      * EventRepository constructor.
+     *
      * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
      */
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);
@@ -87,9 +86,6 @@ class CategoryRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('category');
     }
-
-
-
 
     // /**
     //  * @return Category[] Returns an array of Category objects

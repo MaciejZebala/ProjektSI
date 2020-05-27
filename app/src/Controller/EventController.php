@@ -12,17 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class EventController
+ * Class EventController.
  *
  * @Route("/event")
- *
  */
-
 class EventController extends AbstractController
 {
     /**
-     *
-     * Index Action
+     * Index Action.
      *
      * @param \App\Repository\EventRepository $eventRepository Event repository
      *
@@ -36,13 +33,12 @@ class EventController extends AbstractController
      */
     public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
     {
-
         $page = $request->query->getInt('page', 1);
 
         $pagination = $paginator->paginate($eventRepository->queryAll(), $page, EventRepository::PAGINATOR_ITEMS_PER_PAGE);
 
         return $this->render('event/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 
@@ -63,17 +59,17 @@ class EventController extends AbstractController
     public function show(Event $event): Response
     {
         return $this->render('event/show.html.twig', [
-            'event' => $event
+            'event' => $event,
         ]);
     }
 
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request         $request            HTTP request
-     * @param \App\Repository\EventRepository                   $eventRepository    Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
+     * @param \App\Repository\EventRepository           $eventRepository Event repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response                           HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -96,7 +92,6 @@ class EventController extends AbstractController
             $this->addFlash('success', 'message_created_successfully');
 
             return $this->redirectToRoute('event_index');
-
         }
 
         return $this->render(
@@ -108,11 +103,11 @@ class EventController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Event                         $event              Event entity
-     * @param \App\Repository\EventRepository           $eventRepository    Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
+     * @param \App\Entity\Event                         $event           Event entity
+     * @param \App\Repository\EventRepository           $eventRepository Event repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response                   HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -149,11 +144,11 @@ class EventController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Event                         $event              Event entity
-     * @param \App\Repository\EventRepository           $eventRepository    Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
+     * @param \App\Entity\Event                         $event           Event entity
+     * @param \App\Repository\EventRepository           $eventRepository Event repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response                   HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

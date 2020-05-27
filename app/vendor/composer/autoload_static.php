@@ -102,6 +102,7 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
+            'SensioLabs\\Security\\' => 20,
         ),
         'P' => 
         array (
@@ -111,6 +112,7 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
             'Psr\\Cache\\' => 10,
             'ProxyManager\\' => 13,
             'PhpParser\\' => 10,
+            'PhpOption\\' => 10,
             'PhpCsFixer\\' => 11,
             'PackageVersions\\' => 16,
             'PDepend\\' => 8,
@@ -452,6 +454,10 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
         array (
             0 => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src',
         ),
+        'SensioLabs\\Security\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sensiolabs/security-checker/SensioLabs/Security',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -475,6 +481,10 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
         'PhpCsFixer\\' => 
         array (
@@ -608,6 +618,10 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
     public static $prefixesPsr0 = array (
         'P' => 
         array (
+            'PhpCollection' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
+            ),
             'PHPMD\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpmd/phpmd/src/main/php',
@@ -618,6 +632,24 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
             'OpenCloud' => 
             array (
                 0 => __DIR__ . '/..' . '/rackspace/php-opencloud/lib',
+            ),
+        ),
+        'M' => 
+        array (
+            'Metadata\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/metadata/src',
+            ),
+        ),
+        'J' => 
+        array (
+            'JMS\\Serializer' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/serializer/src',
+            ),
+            'JMS\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/parser-lib/src',
             ),
         ),
         'G' => 

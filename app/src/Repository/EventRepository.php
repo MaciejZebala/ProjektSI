@@ -1,11 +1,10 @@
 <?php
 /**
- * Event Repository
+ * Event Repository.
  */
 
 namespace App\Repository;
 
-use App\Controller\HomePageController;
 use App\Entity\Category;
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -33,9 +32,9 @@ class EventRepository extends ServiceEntityRepository
 
     /**
      * EventRepository constructor.
+     *
      * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
      */
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);
@@ -59,7 +58,6 @@ class EventRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-
     public function getCurrentEvents($dateObj): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
@@ -73,7 +71,6 @@ class EventRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-
     public function getComingEvents($dateObj, $nextThreeDays): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
@@ -118,7 +115,6 @@ class EventRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('event');
@@ -151,5 +147,4 @@ class EventRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-
 }

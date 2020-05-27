@@ -12,19 +12,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class EventController
+ * Class EventController.
  *
  * @Route("/category")
- *
  */
-
 class CategoryController extends AbstractController
 {
     /**
+     * Index Action.
      *
-     * Index Action
-     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Repository\CategoryRepository $categoryRepository Category repository
+     * @param Knp\Component\Pager\PaginatorInterface $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -36,20 +35,21 @@ class CategoryController extends AbstractController
      */
     public function index(Request $request, CategoryRepository $categoryRepository, PaginatorInterface $paginator): Response
     {
-
         $page = $request->query->getInt('page', 1);
 
         $pagination = $paginator->paginate($categoryRepository->queryAll(), $page, CategoryRepository::PAGINATOR_ITEMS_PER_PAGE);
 
         return $this->render('category/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 
     /**
      * Show action.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Category $category Category entity
+     * @param Knp\Component\Pager\PaginatorInterface $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -60,13 +60,13 @@ class CategoryController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-
     public function show(Request $request, Category $category, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
             $category->getEvents(),
             $request->query->getInt('page', 1)
         );
+
         return $this->render(
             'category/show.html.twig',
             ['pagination' => $pagination]
@@ -102,7 +102,6 @@ class CategoryController extends AbstractController
             $this->addFlash('success', 'message_created_successfully');
 
             return $this->redirectToRoute('category_index');
-
         }
 
         return $this->render(

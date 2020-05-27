@@ -3,14 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Contact;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
  * Class ContactFixtures.
- *
  */
-
 class ContactFixtures extends AbstractBaseFixtures
 {
     /**
@@ -18,7 +15,6 @@ class ContactFixtures extends AbstractBaseFixtures
      *
      * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
      */
-
     public function loadData(ObjectManager $manager): void
     {
         $this->createMany(10, 'contacts', function ($i) {

@@ -12,16 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class EventController
+ * Class EventController.
  *
  * @Route("/contact")
- *
  */
 class ContactController extends AbstractController
 {
     /**
-     *
-     * Index Action
+     * Index Action.
      *
      * @param \App\Repository\ContactRepository $contactRepository Contact repository
      *
@@ -40,7 +38,7 @@ class ContactController extends AbstractController
         $pagination = $paginator->paginate($contactRepository->queryAll(), $page, ContactRepository::PAGINATOR_ITEMS_PER_PAGE);
 
         return $this->render('contact/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 
@@ -58,21 +56,20 @@ class ContactController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-
-    public function show(Request $request, Contact $contact, ContactRepository $contactRepository,PaginatorInterface $paginator): Response
+    public function show(Request $request, Contact $contact, ContactRepository $contactRepository, PaginatorInterface $paginator): Response
     {
-
 //        $details = $contactRepository->queryAll();
 
         $pagination = $paginator->paginate(
             $contact->getEvents(),
             $request->query->getInt('page', 1)
         );
+
         return $this->render(
             'contact/show.html.twig',
             [
                 'pagination' => $pagination,
-                'contact' => $contact
+                'contact' => $contact,
             ]
         );
     }
@@ -80,10 +77,10 @@ class ContactController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request         $request            HTTP request
-     * @param \App\Repository\ContactRepository                 $contactRepository  Contact repository
+     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \App\Repository\ContactRepository         $contactRepository Contact repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response                           HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -106,7 +103,6 @@ class ContactController extends AbstractController
             $this->addFlash('success', 'message_created_successfully');
 
             return $this->redirectToRoute('contact_index');
-
         }
 
         return $this->render(
@@ -118,11 +114,11 @@ class ContactController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request     $request                HTTP request
-     * @param \App\Entity\Contact                           $contact                Contact entity
-     * @param \App\Repository\ContactRepository             $contactRepository      Contact repository
+     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \App\Entity\Contact                       $contact           Contact entity
+     * @param \App\Repository\ContactRepository         $contactRepository Contact repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response                           HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -159,11 +155,11 @@ class ContactController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request     $request                HTTP request
-     * @param \App\Entity\Contact                           $contact                Contact entity
-     * @param \App\Repository\ContactRepository             $contactRepository      Contact repository
+     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \App\Entity\Contact                       $contact           Contact entity
+     * @param \App\Repository\ContactRepository         $contactRepository Contact repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response                   HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

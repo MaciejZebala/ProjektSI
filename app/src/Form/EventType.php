@@ -60,9 +60,9 @@ class EventType extends AbstractType
                 'label' => 'label_category',
                 'required' => true,
                 'class' => Category::class,
-                'choice_label' => function($category){
+                'choice_label' => function ($category) {
                     return $category->getTitle();
-                }
+                },
             ]
         );
         $builder->add(
@@ -74,11 +74,12 @@ class EventType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'class' => Contact::class,
-                'choice_label' => function($contact){
+                'choice_label' => function ($contact) {
                     $name = $contact->getName();
                     $surname = $contact->getSurname();
+
                     return $name.' '.$surname;
-                }
+                },
             ]
         );
     }

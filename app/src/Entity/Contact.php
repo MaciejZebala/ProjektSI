@@ -45,9 +45,15 @@ class Contact
      */
     private $events;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="contact")
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,6 +124,34 @@ class Contact
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
             $event->removeContact($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+            $tag->removeContact($this);
         }
 
         return $this;

@@ -16,7 +16,6 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
      *
      * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
      */
-
     public function loadData(ObjectManager $manager): void
     {
         $this->createMany(10, 'events', function ($i) {
@@ -24,6 +23,7 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
             $event->setTitle($this->faker->sentence);
             $event->setDate($this->faker->dateTimeBetween('-100 days', '-1 days'));
             $event->setCategory($this->getRandomReference('categories'));
+
             return $event;
         });
 

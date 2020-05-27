@@ -15,7 +15,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ContactRepository extends ServiceEntityRepository
 {
-
     /**
      * Items per page.
      *
@@ -29,9 +28,9 @@ class ContactRepository extends ServiceEntityRepository
 
     /**
      * EventRepository constructor.
+     *
      * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
      */
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Contact::class);
@@ -75,7 +74,6 @@ class ContactRepository extends ServiceEntityRepository
         $this->_em->remove($contact);
         $this->_em->flush($contact);
     }
-
 
     /**
      * Get or create new query builder.
