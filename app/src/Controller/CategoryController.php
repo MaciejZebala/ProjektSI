@@ -7,6 +7,7 @@ use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -172,7 +173,13 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
     {
-        $form = $this->createForm(CategoryType::class, $category, ['method' => 'DELETE']);
+        if ($category->getEvents()->count()) {
+            $this->addFlash('warning', 'message_category_contains_tasks');
+
+            return $this->redirectToRoute('category_index');
+        }
+
+        $form = $this->createForm(FormType::class, $category, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
@@ -181,11 +188,10 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->delete($category);
-            $this->addFlash('success', 'message.deleted_successfully');
+            $this->addFlash('success', 'message_deleted_successfully');
 
             return $this->redirectToRoute('category_index');
         }
-
         return $this->render(
             'category/delete.html.twig',
             [

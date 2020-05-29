@@ -1,13 +1,17 @@
 <?php
+/**
+ * Category entity.
+ */
 
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- *   Class Category.
+ *  Class Category.
  *
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
@@ -26,17 +30,30 @@ class Category
     /**
      * Title.
      *
-     * @var string
+     * @var $string
      *
      * @ORM\Column(
      *     type="string",
      *     length=45,
      * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="45",
+     * )
      */
     private $title;
 
     /**
+     * Events
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Event[] $events Events
+     *
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="category")
+     *
+     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $events;
 

@@ -8,6 +8,7 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Contact;
 use App\Entity\Event;
+use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -82,6 +83,20 @@ class EventType extends AbstractType
                 },
             ]
         );
+//        $builder->add(
+//            'tags',
+//            EntityType::class,
+//            [
+//                'label' => 'label_tags',
+//                'required' => false,
+//                'expanded' => true,
+//                'multiple' => true,
+//                'class' => Tag::class,
+//                'choice_label' => function ($tag) {
+//                    return $tag->getName();
+//                },
+//            ]
+//        );
     }
 
     /**

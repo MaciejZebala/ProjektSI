@@ -24,19 +24,21 @@ class Tag
      * @ORM\Column(type="string", length=45)
      */
     private $name;
+
     /**
-     * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="tag")
      */
-    private $contact;
+    private $events;
+
     /**
-     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity=Contact::class, mappedBy="tag")
      */
-    private $event;
+    private $contacts;
 
     public function __construct()
     {
-        $this->contact = new ArrayCollection();
-        $this->event = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,51 +51,24 @@ class Tag
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Contact[]
-     */
-    public function getContact(): Collection
-    {
-        return $this->contact;
-    }
-
-    public function addContact(Contact $contact): self
-    {
-        if (!$this->contact->contains($contact)) {
-            $this->contact[] = $contact;
-        }
-
-        return $this;
-    }
-
-    public function removeContact(Contact $contact): self
-    {
-        if ($this->contact->contains($contact)) {
-            $this->contact->removeElement($contact);
-        }
-
-        return $this;
     }
 
     /**
      * @return Collection|Event[]
      */
-    public function getEvent(): Collection
+    public function getEvents(): Collection
     {
-        return $this->event;
+        return $this->events;
     }
 
     public function addEvent(Event $event): self
     {
-        if (!$this->event->contains($event)) {
-            $this->event[] = $event;
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->addTag($this);
         }
 
         return $this;
@@ -101,8 +76,37 @@ class Tag
 
     public function removeEvent(Event $event): self
     {
-        if ($this->event->contains($event)) {
-            $this->event->removeElement($event);
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            $event->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            $contact->removeTag($this);
         }
 
         return $this;

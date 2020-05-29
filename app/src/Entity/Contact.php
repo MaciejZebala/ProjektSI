@@ -46,14 +46,16 @@ class Contact
     private $events;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="contact")
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="contacts")
+     * @ORM\JoinTable(name="contacts_tags")
      */
-    private $tags;
+    private $tag;
+
 
     public function __construct()
     {
         $this->events = new ArrayCollection();
-        $this->tags = new ArrayCollection();
+        $this->tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,16 +134,15 @@ class Contact
     /**
      * @return Collection|Tag[]
      */
-    public function getTags(): Collection
+    public function getTag(): Collection
     {
-        return $this->tags;
+        return $this->tag;
     }
 
     public function addTag(Tag $tag): self
     {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->addContact($this);
+        if (!$this->tag->contains($tag)) {
+            $this->tag[] = $tag;
         }
 
         return $this;
@@ -149,11 +150,11 @@ class Contact
 
     public function removeTag(Tag $tag): self
     {
-        if ($this->tags->contains($tag)) {
-            $this->tags->removeElement($tag);
-            $tag->removeContact($this);
+        if ($this->tag->contains($tag)) {
+            $this->tag->removeElement($tag);
         }
 
         return $this;
     }
+
 }

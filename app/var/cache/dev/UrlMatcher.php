@@ -20,6 +20,8 @@ return [
         '/event' => [[['_route' => 'event_index', '_controller' => 'App\\Controller\\EventController::index'], null, ['GET' => 0], null, true, false, null]],
         '/event/create' => [[['_route' => 'event_create', '_controller' => 'App\\Controller\\EventController::create'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/home' => [[['_route' => 'home_page_index', '_controller' => 'App\\Controller\\HomePageController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/' => [[['_route' => 'tag_index', '_controller' => 'App\\Controller\\TagController::index'], null, ['GET' => 0], null, false, false, null]],
+        '/create' => [[['_route' => 'tag_create', '_controller' => 'App\\Controller\\TagController::create'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -55,6 +57,9 @@ return [
                     .'|([1-9]\\d*)/edit(*:373)'
                     .'|([1-9]\\d*)/delete(*:398)'
                 .')'
+                .'|/([1-9]\\d*)(*:418)'
+                .'|/([1-9]\\d*)/edit(*:442)'
+                .'|/([1-9]\\d*)/delete(*:468)'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes
@@ -73,8 +78,11 @@ return [
         320 => [[['_route' => 'contact_delete', '_controller' => 'App\\Controller\\ContactController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
         350 => [[['_route' => 'event_show', '_controller' => 'App\\Controller\\EventController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         373 => [[['_route' => 'event_edit', '_controller' => 'App\\Controller\\EventController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
-        398 => [
-            [['_route' => 'event_delete', '_controller' => 'App\\Controller\\EventController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null],
+        398 => [[['_route' => 'event_delete', '_controller' => 'App\\Controller\\EventController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
+        418 => [[['_route' => 'tag_show', '_controller' => 'App\\Controller\\TagController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        442 => [[['_route' => 'tag_edit', '_controller' => 'App\\Controller\\TagController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
+        468 => [
+            [['_route' => 'tag_delete', '_controller' => 'App\\Controller\\TagController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],
