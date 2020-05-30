@@ -390,9 +390,14 @@
     </service>
     <service id="App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
+      <argument type="service" id="App\Form\DataTransformer\TagsDataTransformer"/>
+    </service>
+    <service id="App\Form\DataTransformer\TagsDataTransformer" class="App\Form\DataTransformer\TagsDataTransformer" autowire="true" autoconfigure="true">
+      <argument type="service" id="App\Repository\TagRepository"/>
     </service>
     <service id="App\Form\EventType" class="App\Form\EventType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
+      <argument type="service" id="App\Form\DataTransformer\TagsDataTransformer"/>
     </service>
     <service id="App\Form\TagType" class="App\Form\TagType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>

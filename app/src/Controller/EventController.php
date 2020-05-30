@@ -58,8 +58,13 @@ class EventController extends AbstractController
      */
     public function show(Event $event): Response
     {
+        $eventContact = $event->getContact();
+        $eventTag = $event->getTag();
+
         return $this->render('event/show.html.twig', [
             'event' => $event,
+            'eventContact' => $eventContact,
+            'eventTag' => $eventTag
         ]);
     }
 

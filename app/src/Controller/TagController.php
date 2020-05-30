@@ -71,7 +71,7 @@ class TagController extends AbstractController
             'tag/show.html.twig',
             [
                 'paginationEvent' => $paginationEvent,
-//                'paginationContact' => $paginationContact
+                'paginationContact' => $paginationContact
             ]
 
         );

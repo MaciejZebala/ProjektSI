@@ -7,6 +7,7 @@ namespace App\Form;
 
 use App\Entity\Contact;
 use App\Entity\Event;
+use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,6 +19,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ContactType extends AbstractType
 {
+
+    /**
+     * Tags data transformer.
+     *
+     * @var \App\Form\DataTransformer\TagsDataTransformer
+     */
+    private $tagsDataTransformer;
+
+    /**
+     * ContactType constructor.
+     *
+     * @param \App\Form\DataTransformer\TagsDataTransformer $tagsDataTransformer Tags data transformer
+     */
+    public function __construct(TagsDataTransformer $tagsDataTransformer)
+    {
+        $this->tagsDataTransformer = $tagsDataTransformer;
+    }
     /**
      * Builds the form.
      *
@@ -72,18 +90,17 @@ class ContactType extends AbstractType
         );
 
         $builder->add(
-            'events',
-            EntityType::class,
+            'tag',
+            TextType::class,
             [
-                'label' => 'label_event',
+                'label' => 'label_tags',
                 'required' => false,
-                'expanded' => true,
-                'multiple' => true,
-                'class' => Event::class,
-                'choice_label' => function ($event) {
-                    return $event->getTitle();
-                },
+                'attr' => ['max_length' => 128],
             ]
+        );
+
+        $builder->get('tag')->addModelTransformer(
+            $this->tagsDataTransformer
         );
     }
 
