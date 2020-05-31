@@ -24,6 +24,15 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
             $event->setDate($this->faker->dateTimeBetween('-100 days', '-1 days'));
             $event->setCategory($this->getRandomReference('categories'));
 
+            $tags = $this->getRandomReferences(
+                'tags',
+                $this->faker->numberBetween(0, 5)
+            );
+
+            foreach ($tags as $tag){
+                $event->addTag($tag);
+            }
+
             return $event;
         });
 
@@ -38,6 +47,6 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
      */
     public function getDependencies()
     {
-        return [CategoryFixtures::class];
+        return [CategoryFixtures::class, TagFixtures::class];
     }
 }
