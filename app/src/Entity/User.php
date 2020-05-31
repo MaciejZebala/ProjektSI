@@ -1,6 +1,6 @@
 <?php
 /**
- * User entity
+ * User entity.
  */
 
 namespace App\Entity;
@@ -70,14 +70,14 @@ class User implements UserInterface
     private $email;
 
     /**
-     * Roles
+     * Roles.
      *
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
-     * The hashed password
+     * The hashed password.
      *
      * @var string
      *

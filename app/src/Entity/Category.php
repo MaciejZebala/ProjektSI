@@ -30,7 +30,7 @@ class Category
     /**
      * Title.
      *
-     * @var $string
+     * @var
      *
      * @ORM\Column(
      *     type="string",
@@ -47,9 +47,9 @@ class Category
     private $title;
 
     /**
-     * Events
+     * Events.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Event[] $events Events
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Event[] Events
      *
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="category")
      *

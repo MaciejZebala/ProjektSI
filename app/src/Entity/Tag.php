@@ -41,6 +41,9 @@ class Tag
         $this->contacts = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;

@@ -6,7 +6,6 @@ use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use App\Service\EventService;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EventController extends AbstractController
 {
-
     /**
      * Category service.
      *
@@ -40,9 +38,9 @@ class EventController extends AbstractController
     /**
      * Index Action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response                   HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/",
@@ -86,7 +84,7 @@ class EventController extends AbstractController
         return $this->render('event/show.html.twig', [
             'event' => $event,
             'eventContact' => $eventContact,
-            'eventTag' => $eventTag
+            'eventTag' => $eventTag,
         ]);
     }
 

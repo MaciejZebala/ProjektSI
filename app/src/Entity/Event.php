@@ -62,7 +62,6 @@ class Event
      */
     private $tag;
 
-
     public function __construct()
     {
         $this->contact = new ArrayCollection();
@@ -176,5 +175,4 @@ class Event
 
         return $this;
     }
-
 }

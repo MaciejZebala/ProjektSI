@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
-use App\Entity\Event;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use Knp\Component\Pager\PaginatorInterface;

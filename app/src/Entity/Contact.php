@@ -51,7 +51,6 @@ class Contact
      */
     private $tag;
 
-
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -156,5 +155,4 @@ class Contact
 
         return $this;
     }
-
 }

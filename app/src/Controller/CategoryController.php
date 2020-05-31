@@ -40,9 +40,9 @@ class CategoryController extends AbstractController
     /**
      * Index Action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response                   HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/",
@@ -64,9 +64,9 @@ class CategoryController extends AbstractController
     /**
      * Show action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Category $category Category entity
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     * @param \App\Entity\Category                      $category  Category entity
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -208,6 +208,7 @@ class CategoryController extends AbstractController
 
             return $this->redirectToRoute('category_index');
         }
+
         return $this->render(
             'category/delete.html.twig',
             [

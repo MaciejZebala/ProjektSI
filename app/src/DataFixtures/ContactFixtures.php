@@ -30,7 +30,7 @@ class ContactFixtures extends AbstractBaseFixtures implements DependentFixtureIn
                 $this->faker->numberBetween(0, 5)
             );
 
-            foreach ($tags as $tag){
+            foreach ($tags as $tag) {
                 $contact->addTag($tag);
             }
 

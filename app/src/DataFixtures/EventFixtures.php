@@ -29,7 +29,7 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
                 $this->faker->numberBetween(0, 5)
             );
 
-            foreach ($tags as $tag){
+            foreach ($tags as $tag) {
                 $event->addTag($tag);
             }
 
@@ -38,7 +38,7 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
                 $this->faker->numberBetween(0, 5)
             );
 
-            foreach ($contacts as $contact){
+            foreach ($contacts as $contact) {
                 $event->addContact($contact);
             }
 

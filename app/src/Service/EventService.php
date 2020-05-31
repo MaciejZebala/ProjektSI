@@ -6,10 +6,9 @@
 namespace App\Service;
 
 use App\Entity\Category;
-use App\Service\TagService;
 use App\Repository\EventRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * Class EventService.
@@ -48,7 +47,7 @@ class EventService
      * CategoryService constructor.
      *
      * @param \App\Repository\EventRepository         $eventRepository Event repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator       Paginator
      * @param \App\Service\CategoryService            $categoryService Category service
      * @param \App\Service\TagService                 $tagService      Tag service
      */
@@ -63,8 +62,8 @@ class EventService
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
-     * @param array                                               $filters Filters array
+     * @param int   $page    Page number
+     * @param array $filters Filters array
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
@@ -107,5 +106,4 @@ class EventService
 
         return $resultFilters;
     }
-
 }

@@ -3,7 +3,6 @@
 /**
  * Tag type.
  */
-
 namespace App\Form;
 
 use App\Entity\Tag;
