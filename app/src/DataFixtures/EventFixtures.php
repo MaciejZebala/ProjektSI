@@ -33,6 +33,15 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
                 $event->addTag($tag);
             }
 
+            $contacts = $this->getRandomReferences(
+                'contacts',
+                $this->faker->numberBetween(0, 5)
+            );
+
+            foreach ($contacts as $contact){
+                $event->addContact($contact);
+            }
+
             return $event;
         });
 
@@ -47,6 +56,6 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
      */
     public function getDependencies()
     {
-        return [CategoryFixtures::class, TagFixtures::class];
+        return [CategoryFixtures::class, TagFixtures::class, ContactFixtures::class];
     }
 }

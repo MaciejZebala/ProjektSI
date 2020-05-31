@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerJzx29ll/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerYQBVfWt/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -47,6 +47,7 @@ $classes[] = 'App\Repository\CategoryRepository';
 $classes[] = 'App\Repository\ContactRepository';
 $classes[] = 'App\Repository\EventRepository';
 $classes[] = 'App\Repository\TagRepository';
+$classes[] = 'App\Repository\UserRepository';
 $classes[] = 'App\Service\CategoryService';
 $classes[] = 'SensioLabs\Security\Command\SecurityCheckerCommand';
 $classes[] = 'SensioLabs\Security\SecurityChecker';
@@ -169,6 +170,7 @@ $classes[] = 'App\DataFixtures\CategoryFixtures';
 $classes[] = 'App\DataFixtures\ContactFixtures';
 $classes[] = 'App\DataFixtures\EventFixtures';
 $classes[] = 'App\DataFixtures\TagFixtures';
+$classes[] = 'App\DataFixtures\UserFixtures';
 $classes[] = 'Doctrine\Bundle\DoctrineBundle\Command\Proxy\ConvertMappingDoctrineCommand';
 $classes[] = 'Doctrine\Bundle\DoctrineBundle\Command\ImportMappingDoctrineCommand';
 $classes[] = 'Doctrine\Bundle\DoctrineBundle\Command\Proxy\InfoDoctrineCommand';
@@ -364,7 +366,7 @@ $classes[] = 'Symfony\Component\Security\Http\RememberMe\ResponseListener';
 $classes[] = 'Symfony\Component\Security\Core\Role\RoleHierarchy';
 $classes[] = 'Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage';
 $classes[] = 'Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage';
-$classes[] = 'Symfony\Component\Security\Core\User\InMemoryUserProvider';
+$classes[] = 'Symfony\Bridge\Doctrine\Security\User\EntityUserProvider';
 $classes[] = 'Symfony\Component\Security\Core\Validator\Constraints\UserPasswordValidator';
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\EventListener\HttpCacheListener';
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener';
