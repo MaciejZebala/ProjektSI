@@ -7,6 +7,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Event;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,12 +46,20 @@ class EventRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters = []): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
-            ->select('event', 'category')
+        $queryBuilder = $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial event.{id, date, title}',
+                'partial category.{id, title}',
+                'partial tag.{id, name}'
+            )
             ->join('event.category', 'category')
+            ->leftJoin('event.tag', 'tag')
             ->orderBy('event.date', 'DESC');
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+
+        return $queryBuilder;
     }
 
     /**
@@ -78,6 +87,45 @@ class EventRepository extends ServiceEntityRepository
             ->setParameter('date', $dateObj)
             ->setParameter('threeDays', $nextThreeDays)
             ->orderBy('event.date', 'ASC');
+    }
+
+//    /**
+//     * Query tasks by author.
+//     *
+//     * @param array            $filters Filters array
+//     *
+//     * @return \Doctrine\ORM\QueryBuilder Query builder
+//     */
+//    public function queryByAuthor(array $filters = []): QueryBuilder
+//    {
+//        $queryBuilder = $this->queryAll($filters);
+//        $queryBuilder->andWhere('task.author = :author')
+//            ->setParameter('author', $user);
+//
+//        return $queryBuilder;
+//    }
+
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     * @param array                      $filters      Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['category']) && $filters['category'] instanceof Category) {
+            $queryBuilder->andWhere('category = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tag IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        return $queryBuilder;
     }
 
     /**

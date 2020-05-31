@@ -12,6 +12,7 @@
                 <th>{{knp_pagination_sortable(pagination, 'label_date'|trans, 'event.date')}}</th>
                 <th>{{knp_pagination_sortable(pagination, 'label_title'|trans, 'event.title')}}</th>
                 <th>{{knp_pagination_sortable(pagination, 'label_category'|trans, 'category.title')}}</th>
+                <th>{{knp_pagination_sortable(pagination, 'label_tags'|trans, 'tag.name')}}</th>
                 <th>{{'label_actions'|trans}}</th>
             </tr>
             </thead>
@@ -22,7 +23,21 @@
                     <td>{{ event.date|date('Y/m/d') }}</td>
                     <td>{{ event.title }}</td>
                     <td>
-                        <a href="{{ url('category_show', {id: event.category.id}) }}" title="{{ event.category.title }}">{{ event.category.title }}</a>
+                        <a href="{{ url('event_index', {'filters' : {'category' : event.category.id}}) }}" title="{{ event.category.title }}">
+                            {{ event.category.title }}
+                        </a>
+{#                        <a href="{{ url('category_show', {id: event.category.id}) }}" title="{{ event.category.title }}">{{ event.category.title }}</a>#}
+                    </td>
+                    <td>
+                        {% if event.tag is defined and event.tag|length %}
+                            {% for tag in event.tag %}
+                                <a href="{{ url('event_index', {'filters' : {'tag' : tag.id}}) }}" title="{{ tag.name }}">
+                                    {{ tag.name }}
+                                </a>
+                            {% endfor %}
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
                     </td>
                     <td>
                         <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">

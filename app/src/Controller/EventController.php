@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use App\Service\EventService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +19,30 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EventController extends AbstractController
 {
+
+    /**
+     * Category service.
+     *
+     * @var \App\Service\EventService
+     */
+    private $eventService;
+
+    /**
+     * CategoryController constructor.
+     *
+     * @param \App\Service\EventService $eventService Event service
+     */
+    public function __construct(EventService $eventService)
+    {
+        $this->eventService = $eventService;
+    }
+
     /**
      * Index Action.
      *
-     * @param \App\Repository\EventRepository $eventRepository Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response                   HTTP response
      *
      * @Route(
      *     "/",
@@ -31,11 +50,14 @@ class EventController extends AbstractController
      *     name="event_index",
      *     )
      */
-    public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
 
-        $pagination = $paginator->paginate($eventRepository->queryAll(), $page, EventRepository::PAGINATOR_ITEMS_PER_PAGE);
+        $pagination = $this->eventService->createPaginatedList(
+            $page,
+            $request->query->getAlnum('filters', [])
+        );
 
         return $this->render('event/index.html.twig', [
             'pagination' => $pagination,

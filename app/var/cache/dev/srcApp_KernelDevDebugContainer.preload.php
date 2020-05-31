@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerSU5K843/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerGWohqqI/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -34,6 +34,8 @@ $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
 $classes[] = 'App\Controller\CategoryController';
 $classes[] = 'App\Controller\ContactController';
 $classes[] = 'App\Controller\EventController';
+$classes[] = 'App\Service\EventService';
+$classes[] = 'App\Service\TagService';
 $classes[] = 'App\Controller\HomePageController';
 $classes[] = 'App\Controller\TagController';
 $classes[] = 'App\Form\CategoryType';
@@ -45,6 +47,7 @@ $classes[] = 'App\Repository\CategoryRepository';
 $classes[] = 'App\Repository\ContactRepository';
 $classes[] = 'App\Repository\EventRepository';
 $classes[] = 'App\Repository\TagRepository';
+$classes[] = 'App\Service\CategoryService';
 $classes[] = 'SensioLabs\Security\Command\SecurityCheckerCommand';
 $classes[] = 'SensioLabs\Security\SecurityChecker';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController';
