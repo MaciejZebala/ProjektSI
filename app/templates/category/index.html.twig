@@ -25,11 +25,11 @@
                         <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_view'|trans }}">
                             <span><i class="far fa-edit"></i></span>
                         </a>
-{#                        {% if not category.events|length %}#}
+                        {% if not category.events|length %}
                         <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_view'|trans }}">
                            <span><i class="fas fa-trash-alt"></i></span>
                         </a>
-{#                        {% endif %}#}
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

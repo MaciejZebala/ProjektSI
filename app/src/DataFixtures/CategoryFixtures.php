@@ -1,17 +1,18 @@
 <?php
+
 /**
  * Category fixture.
  */
-
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
  * Class CategoryFixtures.
  */
-class CategoryFixtures extends AbstractBaseFixtures
+class CategoryFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
@@ -23,10 +24,22 @@ class CategoryFixtures extends AbstractBaseFixtures
         $this->createMany(10, 'categories', function ($i) {
             $category = new Category();
             $category->setTitle($this->faker->word);
+            $category->setUser($this->getRandomReference('users'));
 
             return $category;
         });
 
         $manager->flush();
+    }
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @return array Array of dependencies
+     */
+    public function getDependencies()
+    {
+        return [UserFixtures::class];
     }
 }

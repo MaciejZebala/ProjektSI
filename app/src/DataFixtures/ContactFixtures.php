@@ -24,6 +24,7 @@ class ContactFixtures extends AbstractBaseFixtures implements DependentFixtureIn
             $contact->setSurname($this->faker->lastName);
             $contact->setPhoneNumber($this->faker->phoneNumber);
             $contact->setEmail($this->faker->email);
+            $contact->setUser($this->getRandomReference('users'));
 
             $tags = $this->getRandomReferences(
                 'tags',
@@ -48,6 +49,6 @@ class ContactFixtures extends AbstractBaseFixtures implements DependentFixtureIn
      */
     public function getDependencies()
     {
-        return [TagFixtures::class];
+        return [TagFixtures::class, UserFixtures::class];
     }
 }

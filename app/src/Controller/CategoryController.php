@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Category Controller
+ */
 namespace App\Controller;
 
 use App\Entity\Category;

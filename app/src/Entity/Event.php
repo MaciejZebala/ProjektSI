@@ -1,4 +1,7 @@
 <?php
+/**
+ * Event Entity
+ */
 
 namespace App\Entity;
 
@@ -7,11 +10,17 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
-//@ORM\Entity(repositoryClass=EventRepository::class)
+
 /**
+ * Class Event
+ *
  * @ORM\Entity(repositoryClass=EventRepository::class)
  * @ORM\Table("events")
+ *
+ * @UniqueEntity(fields={"title"})
  */
 class Event
 {
@@ -32,6 +41,8 @@ class Event
      * @var DateTimeInterface
      *
      * @ORM\Column(type="date")
+     *
+     * @Assert\DateTime
      */
     private $date;
 
@@ -40,28 +51,62 @@ class Event
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(
+     *     type="string",
+     *     length=70,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="70",
+     * )
      */
     private $title;
 
     /**
+     * Category
+     *
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $category;
 
     /**
+     * Contact
+     *
      * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="events")
      * @ORM\JoinTable(name="events_contacts")
+     *
+     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $contact;
 
     /**
+     * Tag
+     *
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="events")
      * @ORM\JoinTable(name="events_tags")
+     *
+     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $tag;
 
+    /**
+     * User
+     *
+     * @ORM\ManyToOne(targetEntity=User::class)
+     *
+     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
+     */
+    private $user;
+
+    /**
+     * Event constructor.
+     */
     public function __construct()
     {
         $this->contact = new ArrayCollection();
@@ -70,6 +115,8 @@ class Event
 
     /**
      * Getter for Id.
+     *
+     * @return int|null Result
      */
     public function getId(): ?int
     {
@@ -78,6 +125,8 @@ class Event
 
     /**
      * Getter for Date.
+     *
+     * @return \DateTimeInterface|null Date
      */
     public function getDate(): ?\DateTimeInterface
     {
@@ -96,6 +145,8 @@ class Event
 
     /**
      * Getter for Title.
+     *
+     * @return string|null Title
      */
     public function getTitle(): ?string
     {
@@ -112,16 +163,20 @@ class Event
         $this->title = $title;
     }
 
+    /**
+     * @return Category|null
+     */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
+    /**
+     * @param Category|null $category
+     */
+    public function setCategory(?Category $category): void
     {
         $this->category = $category;
-
-        return $this;
     }
 
     /**
@@ -132,22 +187,24 @@ class Event
         return $this->contact;
     }
 
-    public function addContact(Contact $contact): self
+    /**
+     * @param Contact $contact
+     */
+    public function addContact(Contact $contact): void
     {
         if (!$this->contact->contains($contact)) {
             $this->contact[] = $contact;
         }
-
-        return $this;
     }
 
-    public function removeContact(Contact $contact): self
+    /**
+     * @param Contact $contact
+     */
+    public function removeContact(Contact $contact): void
     {
         if ($this->contact->contains($contact)) {
             $this->contact->removeElement($contact);
         }
-
-        return $this;
     }
 
     /**
@@ -158,21 +215,39 @@ class Event
         return $this->tag;
     }
 
-    public function addTag(Tag $tag): self
+    /**
+     * @param Tag $tag
+     */
+    public function addTag(Tag $tag): void
     {
         if (!$this->tag->contains($tag)) {
             $this->tag[] = $tag;
         }
-
-        return $this;
     }
 
-    public function removeTag(Tag $tag): self
+    /**
+     * @param Tag $tag
+     */
+    public function removeTag(Tag $tag): void
     {
         if ($this->tag->contains($tag)) {
             $this->tag->removeElement($tag);
         }
+    }
 
-        return $this;
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     */
+    public function setUser(?User $user): void
+    {
+        $this->user = $user;
     }
 }

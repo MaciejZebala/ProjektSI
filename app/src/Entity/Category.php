@@ -1,6 +1,6 @@
 <?php
 /**
- * Category entity.
+ * Category Entity
  */
 
 namespace App\Entity;
@@ -8,6 +8,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
+ *
+ * @UniqueEntity(fields={"title"})
  */
 class Category
 {
@@ -56,6 +59,11 @@ class Category
      * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $events;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -100,17 +108,22 @@ class Category
         return $this->events;
     }
 
-    public function addEvent(Event $event): self
+    /**
+     * @param Event $event
+     * @return $this
+     */
+    public function addEvent(Event $event): void
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
             $event->setCategory($this);
         }
-
-        return $this;
     }
 
-    public function removeEvent(Event $event): self
+    /**
+     * @param Event $event
+     */
+    public function removeEvent(Event $event): void
     {
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
@@ -119,7 +132,21 @@ class Category
                 $event->setCategory(null);
             }
         }
+    }
 
-        return $this;
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     */
+    public function setUser(?User $user): void
+    {
+        $this->user = $user;
     }
 }
