@@ -99,6 +99,7 @@ class Event
      * User
      *
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      *
      * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */

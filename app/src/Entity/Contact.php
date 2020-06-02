@@ -118,6 +118,7 @@ class Contact
      * User
      *
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
