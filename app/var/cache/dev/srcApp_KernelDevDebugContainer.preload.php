@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/Container1apStZs/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerEvBuPaS/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -23,7 +23,6 @@ $classes[] = 'Symfony\Bundle\MakerBundle\MakerBundle';
 $classes[] = 'Symfony\Bundle\WebServerBundle\WebServerBundle';
 $classes[] = 'Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle';
 $classes[] = 'Knp\Bundle\PaginatorBundle\KnpPaginatorBundle';
-$classes[] = 'Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle';
 $classes[] = 'Symfony\Component\HttpClient\TraceableHttpClient';
 $classes[] = 'Symfony\Contracts\HttpClient\HttpClientInterface';
 $classes[] = 'Symfony\Component\HttpClient\HttpClient';
@@ -40,9 +39,7 @@ $classes[] = 'App\Service\ContactService';
 $classes[] = 'App\Controller\EventController';
 $classes[] = 'App\Service\EventService';
 $classes[] = 'App\Controller\HomePageController';
-$classes[] = 'App\Service\HomePageService';
 $classes[] = 'App\Controller\RegistrationController';
-$classes[] = 'App\Service\RegistrationService';
 $classes[] = 'App\Controller\SecurityController';
 $classes[] = 'App\Controller\TagController';
 $classes[] = 'App\Controller\UserController';

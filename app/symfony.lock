@@ -1,7 +1,4 @@
 {
-    "behat/transliterator": {
-        "version": "v1.3.0"
-    },
     "composer/semver": {
         "version": "1.5.1"
     },
@@ -119,9 +116,6 @@
     },
     "fzaninotto/faker": {
         "version": "v1.9.1"
-    },
-    "gedmo/doctrine-extensions": {
-        "version": "v2.4.41"
     },
     "guzzle/guzzle": {
         "version": "v3.8.1"
@@ -244,18 +238,6 @@
         },
         "files": [
             "./phpcs.xml.dist"
-        ]
-    },
-    "stof/doctrine-extensions-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.2",
-            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
-        },
-        "files": [
-            "./config/packages/stof_doctrine_extensions.yaml"
         ]
     },
     "symfony/apache-pack": {

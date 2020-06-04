@@ -8,7 +8,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
-use App\Service\RegistrationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,23 +20,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class RegistrationController extends AbstractController
 {
-    /**
-     * Registration service.
-     *
-     * @var \App\Service\RegistrationService
-     */
-    private $registrationService;
-
-    /**
-     * RegistrationController constructor.
-     *
-     * @param \App\Service\RegistrationService $registartionService Registration service
-     */
-    public function __construct(RegistrationService $registrationService)
-    {
-        $this->registrationService = $registrationService;
-    }
-
 
     /**
      *
@@ -47,9 +29,10 @@ class RegistrationController extends AbstractController
      *
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserRepository $userRepository
      * @return Response
      */
-    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -61,7 +44,7 @@ class RegistrationController extends AbstractController
                 $user->setPassword($password);
                 $user->setRoles(['ROLE_USER']);
 
-                $this->registrationService->save($user);
+                $userRepository->save($user);
 
                 $this->addFlash('success', 'message.registered_successfully');
 
