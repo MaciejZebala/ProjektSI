@@ -19,9 +19,9 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-{#                        <a href="{{ url('admin_user_edit', {id: user.id}) }}" title="{{ 'action_view'|trans }}">#}
-{#                            <span><i class="far fa-edit"></i></span>#}
-{#                        </a>#}
+                        <a href="{{ url('admin_user_edit', {id: user.id}) }}" title="{{ 'action_view'|trans }}">
+                            <span><i class="far fa-edit"></i></span>
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

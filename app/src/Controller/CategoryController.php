@@ -69,7 +69,6 @@ class CategoryController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
      * @param \App\Entity\Category                      $category  Category entity
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -80,12 +79,10 @@ class CategoryController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(Request $request, Category $category, PaginatorInterface $paginator): Response
+    public function show(Request $request, Category $category): Response
     {
-        $pagination = $paginator->paginate(
-            $category->getEvents(),
-            $request->query->getInt('page', 1)
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->categoryService->createPaginatedShowList($page, $category->getEvents());
 
         return $this->render(
             'category/show.html.twig',
@@ -97,7 +94,6 @@ class CategoryController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -110,14 +106,14 @@ class CategoryController extends AbstractController
      *     name="category_create",
      * )
      */
-    public function create(Request $request, CategoryRepository $categoryRepository): Response
+    public function create(Request $request): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categoryRepository->save($category);
+            $this->categoryService->save($category);
 
             $this->addFlash('success', 'message_created_successfully');
 
@@ -135,7 +131,6 @@ class CategoryController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Category                      $category           Category entity
-     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -149,13 +144,13 @@ class CategoryController extends AbstractController
      *     name="category_edit",
      * )
      */
-    public function edit(Request $request, Category $category, CategoryRepository $categoryRepository): Response
+    public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(CategoryType::class, $category, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categoryRepository->save($category);
+            $this->categoryService->save($category);
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -176,7 +171,6 @@ class CategoryController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Category                      $category           Category entity
-     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -190,7 +184,7 @@ class CategoryController extends AbstractController
      *     name="category_delete",
      * )
      */
-    public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
+    public function delete(Request $request, Category $category): Response
     {
         if ($category->getEvents()->count()) {
             $this->addFlash('warning', 'message_category_contains_tasks');
@@ -206,7 +200,7 @@ class CategoryController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categoryRepository->delete($category);
+            $this->categoryService->delete($category);
             $this->addFlash('success', 'message_deleted_successfully');
 
             return $this->redirectToRoute('category_index');

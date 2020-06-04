@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Category;
+use App\Entity\Event;
 use App\Repository\EventRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -76,6 +77,32 @@ class EventService
             $page,
             EventRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Save category.
+     *
+     * @param \App\Entity\Event $event Event entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Event $event): void
+    {
+        $this->eventRepository->save($event);
+    }
+
+    /**
+     * Delete category.
+     *
+     * @param \App\Entity\Event $event Event entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Event $event): void
+    {
+        $this->eventRepository->delete($event);
     }
 
     /**

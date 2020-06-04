@@ -56,7 +56,6 @@ class Category
      *
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="category")
      *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $events;
 

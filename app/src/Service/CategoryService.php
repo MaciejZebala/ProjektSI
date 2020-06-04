@@ -58,6 +58,48 @@ class CategoryService
     }
 
     /**
+     * Create paginated list.
+     *
+     * @param int $page Page number
+     *
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     */
+    public function createPaginatedShowList(int $page, $items): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $items,
+            $page,
+            CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
+
+    /**
+     * Save category.
+     *
+     * @param \App\Entity\Category $category Category entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Category $category): void
+    {
+        $this->categoryRepository->save($category);
+    }
+
+    /**
+     * Delete category.
+     *
+     * @param \App\Entity\Category $category Category entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Category $category): void
+    {
+        $this->categoryRepository->delete($category);
+    }
+
+    /**
      * Find category by Id.
      *
      * @param int $id Category Id

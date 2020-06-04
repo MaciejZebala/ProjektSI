@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerZLD5kl0/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerEvBuPaS/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -32,11 +32,12 @@ $classes[] = 'Symfony\Bundle\FrameworkBundle\EventListener\ResolveControllerName
 $classes[] = 'Symfony\Component\HttpFoundation\RequestMatcher';
 $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
 $classes[] = 'App\Controller\AdminController';
+$classes[] = 'App\Service\AdminService';
 $classes[] = 'App\Controller\CategoryController';
 $classes[] = 'App\Controller\ContactController';
+$classes[] = 'App\Service\ContactService';
 $classes[] = 'App\Controller\EventController';
 $classes[] = 'App\Service\EventService';
-$classes[] = 'App\Service\TagService';
 $classes[] = 'App\Controller\HomePageController';
 $classes[] = 'App\Controller\RegistrationController';
 $classes[] = 'App\Controller\SecurityController';
@@ -48,6 +49,7 @@ $classes[] = 'App\Form\DataTransformer\TagsDataTransformer';
 $classes[] = 'App\Form\EventType';
 $classes[] = 'App\Form\RegistrationType';
 $classes[] = 'App\Form\TagType';
+$classes[] = 'App\Form\UserPasswordType';
 $classes[] = 'App\Repository\CategoryRepository';
 $classes[] = 'App\Repository\ContactRepository';
 $classes[] = 'App\Repository\EventRepository';
@@ -55,6 +57,7 @@ $classes[] = 'App\Repository\TagRepository';
 $classes[] = 'App\Repository\UserRepository';
 $classes[] = 'App\Security\LoginFormAuthenticator';
 $classes[] = 'App\Service\CategoryService';
+$classes[] = 'App\Service\TagService';
 $classes[] = 'SensioLabs\Security\Command\SecurityCheckerCommand';
 $classes[] = 'SensioLabs\Security\SecurityChecker';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController';

@@ -51,7 +51,6 @@ class User implements UserInterface
      *     name="id",
      *     type="integer",
      *     nullable=false,
-     *     options={"unsigned"=true},
      * )
      */
     private $id;

@@ -71,7 +71,6 @@ class Event
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $category;
 
@@ -81,7 +80,6 @@ class Event
      * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="events")
      * @ORM\JoinTable(name="events_contacts")
      *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $contact;
 
@@ -90,8 +88,6 @@ class Event
      *
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="events")
      * @ORM\JoinTable(name="events_tags")
-     *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $tag;
 
@@ -100,8 +96,6 @@ class Event
      *
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
-     *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $user;
 
