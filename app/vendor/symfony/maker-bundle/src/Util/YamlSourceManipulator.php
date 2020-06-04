@@ -314,17 +314,7 @@ class YamlSourceManipulator
 
         if (\is_int($key)) {
             if ($this->isCurrentArrayMultiline()) {
-                if ($this->isCurrentArraySequence()) {
-                    $newYamlValue = '- '.$this->convertToYaml($value);
-                } else {
-                    // this is an associative array, but an indexed key
-                    // is being added. We can't use the "- " format
-                    $newYamlValue = sprintf(
-                        '%s: %s',
-                        $key,
-                        $this->convertToYaml($value)
-                    );
-                }
+                $newYamlValue = '- '.$this->convertToYaml($value);
             } else {
                 $newYamlValue = $this->convertToYaml($value);
             }
@@ -459,23 +449,14 @@ class YamlSourceManipulator
 
         $endValuePosition = $this->findEndPositionOfValue($originalVal);
 
-        $isMultilineValue = null !== $this->findPositionOfMultilineCharInLine($this->currentPosition);
-
-        // In case of multiline, $value is converted as plain string like "Foo\nBar"
-        // We need to keep it "as is"
-        $newYamlValue = $isMultilineValue ? rtrim($value, "\n") : $this->convertToYaml($value);
-        if ((!\is_array($originalVal) && \is_array($value)) ||
-            ($this->isMultilineString($originalVal) && $this->isMultilineString($value))
-        ) {
+        $newYamlValue = $this->convertToYaml($value);
+        if (!\is_array($originalVal) && \is_array($value)) {
             // we're converting from a scalar to a (multiline) array
             // this means we need to break onto the next line
 
             // increase the indentation
             $this->manuallyIncrementIndentation();
             $newYamlValue = "\n".$this->indentMultilineYamlArray($newYamlValue);
-        } elseif ($this->isCurrentArrayMultiline() && $this->isCurrentArraySequence()) {
-            // we are a multi-line sequence, so drop to next line, indent and add "- " in front
-            $newYamlValue = "\n".$this->indentMultilineYamlArray('- '.$newYamlValue);
         } else {
             // empty space between key & value
             $newYamlValue = ' '.$newYamlValue;
@@ -487,13 +468,7 @@ class YamlSourceManipulator
             ++$newPosition;
         }
 
-        if ($isMultilineValue) {
-            // strlen(" |")
-            $newPosition -= 2;
-        }
-
         $newContents = substr($this->contents, 0, $this->currentPosition)
-            .($isMultilineValue ? ' |' : '')
             .$newYamlValue
             /*
              * If the next line is a comment, this means we probably had
@@ -569,16 +544,6 @@ class YamlSourceManipulator
             // for integers, the key may not be explicitly printed
             if (\is_int($key)) {
                 return $this->currentPosition;
-            }
-
-            $cursor = $this->currentPosition;
-
-            while ('-' !== substr($this->contents, $cursor - 1, 1) && -1 !== $cursor) {
-                --$cursor;
-            }
-
-            if ($cursor >= 0) {
-                return $cursor;
             }
 
             throw new YamlManipulationFailedException(sprintf('Cannot find the key "%s"', $key));
@@ -806,26 +771,16 @@ class YamlSourceManipulator
         }
 
         if (is_scalar($value) || null === $value) {
-            $offset = null === $offset ? $this->currentPosition : $offset;
-
             if (\is_bool($value)) {
                 // (?i) & (?-i) opens/closes case insensitive match
                 $pattern = sprintf('(?i)%s(?-i)', $value ? 'true' : 'false');
             } elseif (null === $value) {
                 $pattern = '(~|NULL|null|\n)';
             } else {
-                // Multiline value ends with \n.
-                // If we remove this character, the next property will ne merged with this value
-                $quotedValue = preg_quote(rtrim($value, "\n"), '#');
-                $patternValue = $quotedValue;
-
-                // Iterates until we find a new line char or we reach end of file
-                if (null !== $this->findPositionOfMultilineCharInLine($offset)) {
-                    $patternValue = str_replace(["\r\n", "\n"], '\r?\n\s*', $quotedValue);
-                }
-
-                $pattern = sprintf('\'?"?%s\'?"?', $patternValue);
+                $pattern = sprintf('\'?"?%s\'?"?', preg_quote($value, '#'));
             }
+
+            $offset = null === $offset ? $this->currentPosition : $offset;
 
             // a value like "foo:" can simply end a file
             // this means the value is null
@@ -1209,31 +1164,7 @@ class YamlSourceManipulator
         // also need to be indented artificially by the same amount
         $yaml = str_replace("\n", "\n".$this->getCurrentIndentation(), $yaml);
 
-        if ($this->isMultilineString($yaml)) {
-            // Remove extra indentation in case of blank line in multiline string
-            $yaml = str_replace("\n".$this->getCurrentIndentation()."\n", "\n\n", $yaml);
-        }
-
         // now indent this level
         return $this->getCurrentIndentation().$yaml;
-    }
-
-    private function findPositionOfMultilineCharInLine(int $position): ?int
-    {
-        $cursor = $position;
-        while (!$this->isCharLineBreak($currentChar = substr($this->contents, $cursor + 1, 1)) && !$this->isEOF($cursor)) {
-            if ('|' === $currentChar) {
-                return $cursor;
-            }
-
-            ++$cursor;
-        }
-
-        return null;
-    }
-
-    private function isMultilineString($value): bool
-    {
-        return \is_string($value) && false !== strpos($value, "\n");
     }
 }

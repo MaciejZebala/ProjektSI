@@ -80,9 +80,6 @@ class EmailValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
-        if ('' === $value) {
-            return;
-        }
 
         if (null !== $constraint->normalizer) {
             $value = ($constraint->normalizer)($value);
