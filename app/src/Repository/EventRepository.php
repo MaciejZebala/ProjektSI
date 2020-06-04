@@ -70,6 +70,7 @@ class EventRepository extends ServiceEntityRepository
     public function getCurrentEvents($dateObj): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select('partial event.{id, date, title}')
             ->andWhere('event.date = :date')
             ->setParameter('date', $dateObj)
             ->orderBy('event.date', 'DESC');
@@ -83,6 +84,7 @@ class EventRepository extends ServiceEntityRepository
     public function getComingEvents($dateObj, $nextThreeDays): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select('partial event.{id, date, title}')
             ->andWhere('event.date > :date AND event.date <= :threeDays')
             ->setParameter('date', $dateObj)
             ->setParameter('threeDays', $nextThreeDays)
