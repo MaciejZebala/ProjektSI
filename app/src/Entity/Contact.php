@@ -220,7 +220,7 @@ class Contact
             $this->events[] = $event;
             $event->addContact($this);
         }
-}
+    }
 
     /**
      * @param Event $event

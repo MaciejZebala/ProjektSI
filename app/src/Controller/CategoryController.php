@@ -57,7 +57,7 @@ class CategoryController extends AbstractController
     {
         $page = $request->query->getInt('page', 1);
 
-        $pagination = $this->categoryService->createPaginatedList($page);
+        $pagination = $this->categoryService->createPaginatedList($page, $this->getUser());
 
         return $this->render('category/index.html.twig', [
             'pagination' => $pagination,
@@ -67,8 +67,8 @@ class CategoryController extends AbstractController
     /**
      * Show action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     * @param \App\Entity\Category                      $category  Category entity
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
+     * @param \App\Entity\Category                      $category Category entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -81,8 +81,14 @@ class CategoryController extends AbstractController
      */
     public function show(Request $request, Category $category): Response
     {
+        if($category->getUser()!==$this->getUser()){
+            $this->addFlash('warning', 'message.item_not_found');
+
+            return $this->redirectToRoute('category_index');
+        }
+
         $page = $request->query->getInt('page', 1);
-        $pagination = $this->categoryService->createPaginatedShowList($page, $category->getEvents());
+        $pagination = $this->categoryService->createPaginatedShowList($page, $category->getEvents(), $this->getUser());
 
         return $this->render(
             'category/show.html.twig',
@@ -93,7 +99,7 @@ class CategoryController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -129,8 +135,8 @@ class CategoryController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Category                      $category           Category entity
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
+     * @param \App\Entity\Category                      $category Category entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -169,8 +175,8 @@ class CategoryController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Category                      $category           Category entity
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
+     * @param \App\Entity\Category                      $category Category entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

@@ -8,6 +8,7 @@ namespace App\Repository;
 use App\Entity\Category;
 use App\Entity\Event;
 use App\Entity\Tag;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -67,10 +68,12 @@ class EventRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function getCurrentEvents($dateObj): QueryBuilder
+    public function getCurrentEvents($dateObj, User $user): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->andWhere('event.user = :author')
             ->andWhere('event.date = :date')
+            ->setParameter('author', $user)
             ->setParameter('date', $dateObj)
             ->orderBy('event.date', 'DESC');
     }
@@ -80,13 +83,32 @@ class EventRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function getComingEvents($dateObj, $nextThreeDays): QueryBuilder
+    public function getComingEvents($dateObj, $nextThreeDays, User $user): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->andWhere('event.user = :author')
             ->andWhere('event.date > :date AND event.date <= :threeDays')
             ->setParameter('date', $dateObj)
+            ->setParameter('author', $user)
             ->setParameter('threeDays', $nextThreeDays)
             ->orderBy('event.date', 'ASC');
+    }
+
+    /**
+     * Query tasks by author.
+     *
+     * @param \App\Entity\User $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByAuthor(User $user, array $filters = []): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll($filters);
+
+        $queryBuilder->andWhere('event.user = :author')
+            ->setParameter('author', $user);
+
+        return $queryBuilder;
     }
 
 //    /**

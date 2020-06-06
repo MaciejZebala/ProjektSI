@@ -112,6 +112,7 @@ class Category
 
     /**
      * @param Event $event
+     *
      * @return $this
      */
     public function addEvent(Event $event): void

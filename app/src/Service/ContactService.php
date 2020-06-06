@@ -34,8 +34,8 @@ class ContactService
     /**
      * ContactService constructor.
      *
-     * @param \App\Repository\ContactRepository      $contactRepository Contact repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\ContactRepository       $contactRepository Contact repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator         Paginator
      */
     public function __construct(ContactRepository $contactRepository, PaginatorInterface $paginator)
     {

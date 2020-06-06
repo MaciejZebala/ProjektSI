@@ -10,6 +10,7 @@ use App\Entity\Event;
 use App\Repository\EventRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class EventService.
@@ -68,12 +69,12 @@ class EventService
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
-    public function createPaginatedList(int $page, array $filters = []): PaginationInterface
+    public function createPaginatedList(int $page, UserInterface $user, array $filters = []): PaginationInterface
     {
         $filters = $this->prepareFilters($filters);
 
         return $this->paginator->paginate(
-            $this->eventRepository->queryAll($filters),
+            $this->eventRepository->queryByAuthor($user, $filters),
             $page,
             EventRepository::PAGINATOR_ITEMS_PER_PAGE
         );

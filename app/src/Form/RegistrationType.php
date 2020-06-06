@@ -42,8 +42,8 @@ class RegistrationType extends AbstractType
             RepeatedType::class,
             [
                 'type' => PasswordType::class,
-                'first_options' => array('label'=>'Password'),
-                'second_options' => array('label'=>'Repeat Password'),
+                'first_options' => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password'),
             ]
         );
     }

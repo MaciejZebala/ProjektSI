@@ -1,3 +1,4 @@
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark st">
     <div class="container">
         <a class="navbar-brand" href="{{ url('home_page_index') }}">Terminarz <span><i class="far fa-calendar-alt"></i></span></a>
@@ -22,12 +23,18 @@
                     <a class="nav-link" href="{{ url('tag_index') }}">Tagi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Moje Konto</a>
+                    <a class="nav-link" href="{{url('user_index')}}">Moje Konto</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('admin_user')}}">Panel Admina</a>
                 </li>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li class="nav-item ml-5">
+                    <a class="nav-link" href="{{url('app_logout')}}">Wyloguj</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
+{% endif %}

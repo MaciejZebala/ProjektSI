@@ -79,6 +79,12 @@ class ContactController extends AbstractController
      */
     public function show(Request $request, Contact $contact): Response
     {
+        if($contact->getUser()!==$this->getUser()){
+            $this->addFlash('warning', 'message.item_not_found');
+
+            return $this->redirectToRoute('contact_index');
+        }
+
         $page = $request->query->getInt('page', 1);
         $pagination = $this->contactService->createPaginatedShowList($page, $contact->getEvents());
 
@@ -94,7 +100,7 @@ class ContactController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -129,8 +135,8 @@ class ContactController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Entity\Contact                       $contact           Contact entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Contact                       $contact Contact entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -169,8 +175,8 @@ class ContactController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Entity\Contact                       $contact           Contact entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Contact                       $contact Contact entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

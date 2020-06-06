@@ -26,6 +26,7 @@ return [
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
         '/tag' => [[['_route' => 'tag_index', '_controller' => 'App\\Controller\\TagController::index'], null, ['GET' => 0], null, true, false, null]],
         '/tag/create' => [[['_route' => 'tag_create', '_controller' => 'App\\Controller\\TagController::create'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/user' => [[['_route' => 'user_index', '_controller' => 'App\\Controller\\UserController::index'], null, null, null, true, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -67,7 +68,7 @@ return [
                     .'|([1-9]\\d*)/edit(*:478)'
                     .'|([1-9]\\d*)/delete(*:503)'
                 .')'
-                .'|/user/([1-9]\\d*)/pass(*:533)'
+                .'|/user/([1-9]\\d*)/edit(*:533)'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes

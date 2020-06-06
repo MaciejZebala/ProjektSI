@@ -213,7 +213,11 @@
     <parameter key="doctrine_migrations.organize_migrations">false</parameter>
     <parameter key="security.authentication.trust_resolver.anonymous_class">null</parameter>
     <parameter key="security.authentication.trust_resolver.rememberme_class">null</parameter>
-    <parameter key="security.role_hierarchy.roles" type="collection"/>
+    <parameter key="security.role_hierarchy.roles" type="collection">
+      <parameter key="ROLE_ADMIN" type="collection">
+        <parameter>ROLE_USER</parameter>
+      </parameter>
+    </parameter>
     <parameter key="security.access.denied_url">null</parameter>
     <parameter key="security.authentication.manager.erase_credentials">true</parameter>
     <parameter key="security.authentication.session_strategy.strategy">migrate</parameter>
@@ -376,6 +380,7 @@
     <service id="App\Controller\HomePageController" class="App\Controller\HomePageController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Service\HomePageService"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\HomePageController"/>
       </call>
@@ -383,6 +388,7 @@
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Service\RegistrationService"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\RegistrationController"/>
       </call>
@@ -492,8 +498,13 @@
       <argument type="service" id="App\Service\CategoryService"/>
       <argument type="service" id="App\Service\TagService"/>
     </service>
-    <service id="App\Service\HomePageService" class="App\Service\HomePageService" autowire="true" autoconfigure="true"/>
-    <service id="App\Service\RegistrarionService" class="App\Service\RegistrarionService" autowire="true" autoconfigure="true"/>
+    <service id="App\Service\HomePageService" class="App\Service\HomePageService" autowire="true" autoconfigure="true">
+      <argument type="service" id="App\Repository\EventRepository"/>
+      <argument type="service" id="knp_paginator"/>
+    </service>
+    <service id="App\Service\RegistrationService" class="App\Service\RegistrationService" autowire="true" autoconfigure="true">
+      <argument type="service" id="App\Repository\UserRepository"/>
+    </service>
     <service id="App\Service\TagService" class="App\Service\TagService" autowire="true" autoconfigure="true">
       <argument type="service" id="App\Repository\TagRepository"/>
       <argument type="service" id="knp_paginator"/>
@@ -4050,14 +4061,15 @@
       <argument type="service" id="request_stack"/>
     </service>
     <service id="security.role_hierarchy" class="Symfony\Component\Security\Core\Role\RoleHierarchy" public="false">
-      <argument type="collection"/>
-    </service>
-    <service id="security.access.simple_role_voter" class="Symfony\Component\Security\Core\Authorization\Voter\RoleVoter" public="false">
-      <tag name="security.voter" priority="245"/>
+      <argument>%security.role_hierarchy.roles%</argument>
     </service>
     <service id="security.access.authenticated_voter" class="Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter" public="false">
       <tag name="security.voter" priority="250"/>
       <argument type="service" id="security.authentication.trust_resolver"/>
+    </service>
+    <service id="security.access.role_hierarchy_voter" class="Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter" public="false">
+      <tag name="security.voter" priority="245"/>
+      <argument type="service" id="security.role_hierarchy"/>
     </service>
     <service id="security.access.expression_voter" class="Symfony\Component\Security\Core\Authorization\Voter\ExpressionVoter" public="false">
       <tag name="security.voter" priority="245"/>
@@ -4169,7 +4181,29 @@
       <argument type="service" id="security.authentication.retry_entry_point"/>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
     </service>
-    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false"/>
+    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false">
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.O7Tsk.w"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.QWkwKV5"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.PhQgZ9B"/>
+        <argument type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+    </service>
     <service id="security.context_listener" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.untracked_token_storage"/>
@@ -4554,7 +4588,7 @@
     </service>
     <service id="security.logout.success_handler.main" class="Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler" public="false">
       <argument type="service" id="security.http_utils"/>
-      <argument>/</argument>
+      <argument>app_login</argument>
     </service>
     <service id="security.authentication.provider.guard.main" class="Symfony\Component\Security\Guard\Provider\GuardAuthenticationProvider" public="false">
       <argument type="iterator">
@@ -4614,6 +4648,15 @@
         <argument key="security.firewall.map.context.dev" type="service" id="security.firewall.map.context.dev"/>
         <argument key="security.firewall.map.context.main" type="service" id="security.firewall.map.context.main"/>
       </argument>
+    </service>
+    <service id=".security.request_matcher.O7Tsk.w" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/register</argument>
+    </service>
+    <service id=".security.request_matcher.QWkwKV5" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/login</argument>
+    </service>
+    <service id=".security.request_matcher.PhQgZ9B" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/</argument>
     </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>
@@ -5385,18 +5428,10 @@
         <argument key="event" type="service" id=".errored..service_locator.1hKwnw8.App\Entity\Event"/>
       </argument>
     </service>
-    <service id=".service_locator.ir_9f0E" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="eventRepository" type="service" id="App\Repository\EventRepository"/>
-        <argument key="paginator" type="service" id="knp_paginator"/>
-      </argument>
-    </service>
-    <service id=".service_locator.QBb2BJR" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.ccM2MGC" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="passwordEncoder" type="service" id="security.user_password_encoder.generic"/>
-        <argument key="userRepository" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
     <service id=".service_locator.g.xob4v" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5419,7 +5454,7 @@
         <argument key="userRepository" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.PFRz8pP" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.8DzytJj" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::edit" type="service" id=".service_locator.HYqik_K"/>
@@ -5432,8 +5467,7 @@
         <argument key="App\Controller\EventController::delete" type="service" id=".service_locator.1hKwnw8"/>
         <argument key="App\Controller\EventController::edit" type="service" id=".service_locator.1hKwnw8"/>
         <argument key="App\Controller\EventController::show" type="service" id=".service_locator.1hKwnw8"/>
-        <argument key="App\Controller\HomePageController::index" type="service" id=".service_locator.ir_9f0E"/>
-        <argument key="App\Controller\RegistrationController::index" type="service" id=".service_locator.QBb2BJR"/>
+        <argument key="App\Controller\RegistrationController::index" type="service" id=".service_locator.ccM2MGC"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.g.xob4v"/>
         <argument key="App\Controller\TagController::delete" type="service" id=".service_locator.E.Wb5rc"/>
         <argument key="App\Controller\TagController::edit" type="service" id=".service_locator.E.Wb5rc"/>
@@ -5449,8 +5483,7 @@
         <argument key="App\Controller\EventController:delete" type="service" id=".service_locator.1hKwnw8"/>
         <argument key="App\Controller\EventController:edit" type="service" id=".service_locator.1hKwnw8"/>
         <argument key="App\Controller\EventController:show" type="service" id=".service_locator.1hKwnw8"/>
-        <argument key="App\Controller\HomePageController:index" type="service" id=".service_locator.ir_9f0E"/>
-        <argument key="App\Controller\RegistrationController:index" type="service" id=".service_locator.QBb2BJR"/>
+        <argument key="App\Controller\RegistrationController:index" type="service" id=".service_locator.ccM2MGC"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.g.xob4v"/>
         <argument key="App\Controller\TagController:delete" type="service" id=".service_locator.E.Wb5rc"/>
         <argument key="App\Controller\TagController:edit" type="service" id=".service_locator.E.Wb5rc"/>
@@ -5557,8 +5590,8 @@
       <argument type="service" id="security.access.authenticated_voter"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
-    <service id="debug.security.voter.security.access.simple_role_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
-      <argument type="service" id="security.access.simple_role_voter"/>
+    <service id="debug.security.voter.security.access.role_hierarchy_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
+      <argument type="service" id="security.access.role_hierarchy_voter"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
     <service id="debug.security.voter.security.access.expression_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
@@ -5922,7 +5955,7 @@
     <service id="debug.security.access.decision_manager.inner" class="Symfony\Component\Security\Core\Authorization\AccessDecisionManager" public="false">
       <argument type="iterator">
         <argument type="service" id="debug.security.voter.security.access.authenticated_voter"/>
-        <argument type="service" id="debug.security.voter.security.access.simple_role_voter"/>
+        <argument type="service" id="debug.security.voter.security.access.role_hierarchy_voter"/>
         <argument type="service" id="debug.security.voter.security.access.expression_voter"/>
       </argument>
       <argument>affirmative</argument>
@@ -5946,12 +5979,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.PFRz8pP"/>
+      <argument type="service" id=".service_locator.8DzytJj"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.PFRz8pP"/>
+      <argument type="service" id=".service_locator.8DzytJj"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6349,7 +6382,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.PFRz8pP"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.8DzytJj"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

@@ -41,5 +41,6 @@ return [
     'tag_create' => [[], ['_controller' => 'App\\Controller\\TagController::create'], [], [['text', '/tag/create']], [], []],
     'tag_edit' => [['id'], ['_controller' => 'App\\Controller\\TagController::edit'], ['id' => '[1-9]\\d*'], [['text', '/edit'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/tag']], [], []],
     'tag_delete' => [['id'], ['_controller' => 'App\\Controller\\TagController::delete'], ['id' => '[1-9]\\d*'], [['text', '/delete'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/tag']], [], []],
-    'user_edit' => [['id'], ['_controller' => 'App\\Controller\\UserController::edit'], ['id' => '[1-9]\\d*'], [['text', '/pass'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/user']], [], []],
+    'user_index' => [[], ['_controller' => 'App\\Controller\\UserController::index'], [], [['text', '/user/']], [], []],
+    'user_edit' => [['id'], ['_controller' => 'App\\Controller\\UserController::edit'], ['id' => '[1-9]\\d*'], [['text', '/edit'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/user']], [], []],
 ];

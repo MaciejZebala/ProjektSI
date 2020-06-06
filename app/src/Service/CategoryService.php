@@ -9,6 +9,7 @@ use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class CategoryService.
@@ -48,10 +49,10 @@ class CategoryService
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
-    public function createPaginatedList(int $page): PaginationInterface
+    public function createPaginatedList(int $page, UserInterface $user): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->categoryRepository->queryAll(),
+            $this->categoryRepository->queryByAuthor($user),
             $page,
             CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
         );

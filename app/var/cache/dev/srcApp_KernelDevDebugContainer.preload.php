@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerEvBuPaS/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerYBunUPN/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -39,7 +39,9 @@ $classes[] = 'App\Service\ContactService';
 $classes[] = 'App\Controller\EventController';
 $classes[] = 'App\Service\EventService';
 $classes[] = 'App\Controller\HomePageController';
+$classes[] = 'App\Service\HomePageService';
 $classes[] = 'App\Controller\RegistrationController';
+$classes[] = 'App\Service\RegistrationService';
 $classes[] = 'App\Controller\SecurityController';
 $classes[] = 'App\Controller\TagController';
 $classes[] = 'App\Controller\UserController';
@@ -150,7 +152,7 @@ $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter
 $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\ExpressionVoter';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\ExpressionLanguage';
-$classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\RoleVoter';
+$classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter';
 $classes[] = 'Symfony\Bundle\SecurityBundle\EventListener\VoteListener';
 $classes[] = 'Symfony\Component\Stopwatch\Stopwatch';
 $classes[] = 'Symfony\Component\DependencyInjection\Config\ContainerParametersResourceChecker';

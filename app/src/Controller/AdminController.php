@@ -42,7 +42,7 @@ class AdminController extends AbstractController
     /**
      * Users action.
      *
-     * @param Request            $request    HTTP request
+     * @param Request $request HTTP request
      *
      * @return Response
      *
@@ -71,11 +71,10 @@ class AdminController extends AbstractController
      */
     public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder, User $user): Response
     {
-        $form = $this->createForm(UserPasswordType::class, $user, ['method'=>'PUT']);
+        $form = $this->createForm(UserPasswordType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
@@ -85,9 +84,11 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('admin_user');
         }
-        return $this->render('admin/edit.html.twig',
+
+        return $this->render(
+            'admin/edit.html.twig',
             ['form' => $form->createView(),
-                'user' => $user]
+                'user' => $user, ]
         );
     }
 }

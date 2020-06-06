@@ -54,6 +54,7 @@ class EventController extends AbstractController
 
         $pagination = $this->eventService->createPaginatedList(
             $page,
+            $this->getUser(),
             $request->query->getAlnum('filters', [])
         );
 
@@ -78,6 +79,12 @@ class EventController extends AbstractController
      */
     public function show(Event $event): Response
     {
+            if($event->getUser()!==$this->getUser()){
+                $this->addFlash('warning', 'message.item_not_found');
+
+                return $this->redirectToRoute('event_index');
+            }
+
         $eventContact = $event->getContact();
         $eventTag = $event->getTag();
 
@@ -91,7 +98,7 @@ class EventController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -128,8 +135,8 @@ class EventController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Entity\Event                         $event           Event entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Event                         $event   Event entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -168,8 +175,8 @@ class EventController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Entity\Event                         $event           Event entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Event                         $event   Event entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
