@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Contact Class
  *
- * @ORM\Entity(repositoryClass=ContactRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ContactRepository", repositoryClass=ContactRepository::class)
  * @ORM\Table(name="contacts")
  */
 class Contact
@@ -96,11 +96,7 @@ class Contact
     /**
      * Events
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Event[]    $events Events
-     *
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="contact")
-     *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $events;
 
@@ -109,8 +105,6 @@ class Contact
      *
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="contacts")
      * @ORM\JoinTable(name="contacts_tags")
-     *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $tag;
 

@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -66,6 +67,18 @@ class CategoryRepository extends ServiceEntityRepository
             ->setParameter('author', $user);
 
         return $queryBuilder;
+    }
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return QueryBuilder
+     */
+    public function queryUserCategory(User $user): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->andwhere('category.user = :author')
+            ->setParameter('author', $user);
     }
 
     /**

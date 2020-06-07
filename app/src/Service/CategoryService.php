@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Category;
+use App\Entity\User;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -59,19 +60,14 @@ class CategoryService
     }
 
     /**
-     * Create paginated list.
+     * @param UserInterface $user
      *
-     * @param int $page Page number
-     *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return \Doctrine\ORM\QueryBuilder
+     * @return \App\Entity\Category|null Category entity
      */
-    public function createPaginatedShowList(int $page, $items): PaginationInterface
+    public function getUserCategories(UserInterface $user)
     {
-        return $this->paginator->paginate(
-            $items,
-            $page,
-            CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        return $this->categoryRepository->queryUserCategory($user)->getQuery()->getResult();
     }
 
     /**

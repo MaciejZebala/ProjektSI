@@ -58,21 +58,6 @@ class TagService
     }
 
     /**
-     * Create paginated list.
-     *
-     * @param int $page Page number
-     *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
-     */
-    public function createPaginatedShowList(int $page, $items): PaginationInterface
-    {
-        return $this->paginator->paginate(
-            $items,
-            $page,
-            TagRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-    }
-    /**
      * Find tag by Id.
      *
      * @param int $id Tag Id

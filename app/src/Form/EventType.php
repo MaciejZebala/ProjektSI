@@ -9,12 +9,16 @@ use App\Entity\Category;
 use App\Entity\Contact;
 use App\Entity\Event;
 use App\Form\DataTransformer\TagsDataTransformer;
+use App\Service\CategoryService;
+use App\Service\ContactService;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class EventType.
@@ -28,14 +32,20 @@ class EventType extends AbstractType
      */
     private $tagsDataTransformer;
 
+    private $categoryService;
+
+    private $contactService;
+
     /**
      * EventType constructor.
      *
      * @param \App\Form\DataTransformer\TagsDataTransformer $tagsDataTransformer Tags data transformer
      */
-    public function __construct(TagsDataTransformer $tagsDataTransformer)
+    public function __construct(TagsDataTransformer $tagsDataTransformer, CategoryService $categoryService, ContactService $contactService)
     {
         $this->tagsDataTransformer = $tagsDataTransformer;
+        $this->categoryService = $categoryService;
+        $this->contactService = $contactService;
     }
 
     /**
@@ -78,6 +88,7 @@ class EventType extends AbstractType
                 'label' => 'label_category',
                 'required' => true,
                 'class' => Category::class,
+                'choices' => $this->categoryService->getUserCategories($options['user']),
                 'choice_label' => function ($category) {
                     return $category->getTitle();
                 },
@@ -92,6 +103,7 @@ class EventType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'class' => Contact::class,
+                'choices' => $this->contactService->getUserCategories($options['user']),
                 'choice_label' => function ($contact) {
                     $name = $contact->getName();
                     $surname = $contact->getSurname();
@@ -123,6 +135,9 @@ class EventType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(['data_class' => Event::class]);
+
+        $resolver->setRequired('user');
+        $resolver->setAllowedTypes('user', [UserInterface::class]);
     }
 
     /**

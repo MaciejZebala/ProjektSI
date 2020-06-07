@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerYBunUPN/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerAfLtuNu/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -35,7 +35,6 @@ $classes[] = 'App\Controller\AdminController';
 $classes[] = 'App\Service\AdminService';
 $classes[] = 'App\Controller\CategoryController';
 $classes[] = 'App\Controller\ContactController';
-$classes[] = 'App\Service\ContactService';
 $classes[] = 'App\Controller\EventController';
 $classes[] = 'App\Service\EventService';
 $classes[] = 'App\Controller\HomePageController';
@@ -59,6 +58,7 @@ $classes[] = 'App\Repository\TagRepository';
 $classes[] = 'App\Repository\UserRepository';
 $classes[] = 'App\Security\LoginFormAuthenticator';
 $classes[] = 'App\Service\CategoryService';
+$classes[] = 'App\Service\ContactService';
 $classes[] = 'App\Service\TagService';
 $classes[] = 'SensioLabs\Security\Command\SecurityCheckerCommand';
 $classes[] = 'SensioLabs\Security\SecurityChecker';
@@ -149,6 +149,11 @@ $classes[] = 'Symfony\Component\Security\Core\Authorization\AccessDecisionManage
 $classes[] = 'Symfony\Bundle\SecurityBundle\Debug\TraceableFirewallListener';
 $classes[] = 'Symfony\Component\Security\Http\Controller\UserValueResolver';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter';
+$classes[] = 'App\Security\Voter\CategoryVoter';
+$classes[] = 'App\Security\Voter\ContactVoter';
+$classes[] = 'App\Security\Voter\EventVoter';
+$classes[] = 'Symfony\Component\Security\Core\Security';
+$classes[] = 'App\Security\Voter\UserVoter';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\ExpressionVoter';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\ExpressionLanguage';

@@ -19,15 +19,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('contact_index') }}">Kontakty</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('tag_index') }}">Tagi</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('user_index')}}">Moje Konto</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('admin_user')}}">Panel Admina</a>
                 </li>
+                {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li class="nav-item ml-5">
                     <a class="nav-link" href="{{url('app_logout')}}">Wyloguj</a>

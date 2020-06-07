@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Contact;
+use App\Entity\Tag;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,11 +43,50 @@ class ContactRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters = []): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial contact.{id, name, surname}',
+                'partial tag.{id, name}'
+            )
+            ->orderBy('contact.id', 'ASC')
+            ->leftJoin('contact.tag', 'tag');
+
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * @param User  $user
+     * @param array $filters
+     *
+     * @return QueryBuilder
+     */
+    public function queryByAuthor(User $user, array $filters = []): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll($filters);
+
+        $queryBuilder
+            ->andWhere('contact.user = :author')
+            ->setParameter('author', $user);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return QueryBuilder
+     */
+    public function queryUserCategory(User $user): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
-            ->orderBy('contact.id', 'ASC');
+            ->andwhere('contact.user = :author')
+            ->setParameter('author', $user);
     }
+
 
     /**
      * Save record.
@@ -73,6 +114,24 @@ class ContactRepository extends ServiceEntityRepository
     {
         $this->_em->remove($contact);
         $this->_em->flush($contact);
+    }
+
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     * @param array                      $filters      Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tag IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        return $queryBuilder;
     }
 
     /**

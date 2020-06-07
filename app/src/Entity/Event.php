@@ -70,6 +70,7 @@ class Event
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      *
+     *
      */
     private $category;
 

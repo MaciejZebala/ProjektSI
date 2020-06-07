@@ -1,10 +1,14 @@
 <?php
+/**
+ * User Controller
+ */
 
 namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +35,7 @@ class UserController extends AbstractController
         $userName = $this->getUser();
 
         return $this->render('user/index.html.twig', [
-            'user' => $userName
+            'user' => $userName,
         ]);
     }
 
@@ -40,6 +44,7 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
      * @param \App\Entity\Category                      $category Category entity
+     * @
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -51,6 +56,11 @@ class UserController extends AbstractController
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="user_edit",
+     * )
+     *
+     * @IsGranted(
+     *  "EDIT",
+     *  subject="user",
      * )
      */
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository): Response

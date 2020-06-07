@@ -3,6 +3,7 @@
  * Registration Controller.
  */
 namespace App\Controller;
+
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Service\RegistrationService;
@@ -11,9 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 /**
  * Class RegistrationController
- * @package App\Controller
  */
 class RegistrationController extends AbstractController
 {
@@ -23,6 +24,7 @@ class RegistrationController extends AbstractController
      * @var \App\Service\RegistrationService
      */
     private $registrationService;
+
     /**
      * RegistrationController constructor.
      *
@@ -38,8 +40,9 @@ class RegistrationController extends AbstractController
      *
      * @Route("/register", name="user_register")
      *
-     * @param Request $request
+     * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     *
      * @return Response
      */
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
@@ -54,11 +57,14 @@ class RegistrationController extends AbstractController
                 $user->setRoles(['ROLE_USER']);
                 $this->registrationService->save($user);
                 $this->addFlash('success', 'message.registered_successfully');
+
                 return $this->redirectToRoute('app_login');
             }
         }
-        return $this->render('registration/index.html.twig',
-            ['form' => $form->createView(),]
+
+        return $this->render(
+            'registration/index.html.twig',
+            ['form' => $form->createView(), ]
         );
     }
 }

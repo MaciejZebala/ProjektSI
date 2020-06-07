@@ -19,9 +19,6 @@
                     <td>{{ category.id }}</td>
                     <td>{{ category.title }}</td>
                     <td>
-                        <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action_view'|trans }}">
-                            <span><i class="fas fa-search"></i></span>
-                        </a>
                         <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_view'|trans }}">
                             <span><i class="far fa-edit"></i></span>
                         </a>

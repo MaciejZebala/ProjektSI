@@ -373,6 +373,7 @@
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <argument type="service" id="App\Service\EventService"/>
+      <argument type="service" id="App\Service\CategoryService"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EventController"/>
       </call>
@@ -444,6 +445,8 @@
     <service id="App\Form\EventType" class="App\Form\EventType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
       <argument type="service" id="App\Form\DataTransformer\TagsDataTransformer"/>
+      <argument type="service" id="App\Service\CategoryService"/>
+      <argument type="service" id="App\Service\ContactService"/>
     </service>
     <service id="App\Form\RegistrationType" class="App\Form\RegistrationType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
@@ -480,6 +483,19 @@
       <argument type="service" id="security.csrf.token_manager"/>
       <argument type="service" id="security.user_password_encoder.generic"/>
     </service>
+    <service id="App\Security\Voter\CategoryVoter" class="App\Security\Voter\CategoryVoter" autowire="true" autoconfigure="true">
+      <tag name="security.voter"/>
+    </service>
+    <service id="App\Security\Voter\ContactVoter" class="App\Security\Voter\ContactVoter" autowire="true" autoconfigure="true">
+      <tag name="security.voter"/>
+    </service>
+    <service id="App\Security\Voter\EventVoter" class="App\Security\Voter\EventVoter" autowire="true" autoconfigure="true">
+      <tag name="security.voter"/>
+      <argument type="service" id="security.helper"/>
+    </service>
+    <service id="App\Security\Voter\UserVoter" class="App\Security\Voter\UserVoter" autowire="true" autoconfigure="true">
+      <tag name="security.voter"/>
+    </service>
     <service id="App\Service\AdminService" class="App\Service\AdminService" autowire="true" autoconfigure="true">
       <argument type="service" id="App\Repository\UserRepository"/>
       <argument type="service" id="knp_paginator"/>
@@ -491,6 +507,7 @@
     <service id="App\Service\ContactService" class="App\Service\ContactService" autowire="true" autoconfigure="true">
       <argument type="service" id="App\Repository\ContactRepository"/>
       <argument type="service" id="knp_paginator"/>
+      <argument type="service" id="App\Service\TagService"/>
     </service>
     <service id="App\Service\EventService" class="App\Service\EventService" autowire="true" autoconfigure="true">
       <argument type="service" id="App\Repository\EventRepository"/>
@@ -5193,6 +5210,14 @@
     <service id=".abstract.instanceof.App\Repository\TagRepository" class="App\Repository\TagRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Security\Core\Authorization\Voter\VoterInterface.0.App\Security\Voter\CategoryVoter" class="App\Security\Voter\CategoryVoter" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Security\Voter\CategoryVoter" class="App\Security\Voter\CategoryVoter" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Security\Core\Authorization\Voter\VoterInterface.0.App\Security\Voter\ContactVoter" class="App\Security\Voter\ContactVoter" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Security\Voter\ContactVoter" class="App\Security\Voter\ContactVoter" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Security\Core\Authorization\Voter\VoterInterface.0.App\Security\Voter\EventVoter" class="App\Security\Voter\EventVoter" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Security\Voter\EventVoter" class="App\Security\Voter\EventVoter" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Security\Core\Authorization\Voter\VoterInterface.0.App\Security\Voter\UserVoter" class="App\Security\Voter\UserVoter" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Security\Voter\UserVoter" class="App\Security\Voter\UserVoter" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.CmORmuK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5454,13 +5479,12 @@
         <argument key="userRepository" type="service" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.8DzytJj" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.oM8XT29" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::edit" type="service" id=".service_locator.HYqik_K"/>
         <argument key="App\Controller\CategoryController::delete" type="service" id=".service_locator.BljtxGn"/>
         <argument key="App\Controller\CategoryController::edit" type="service" id=".service_locator.BljtxGn"/>
-        <argument key="App\Controller\CategoryController::show" type="service" id=".service_locator.BljtxGn"/>
         <argument key="App\Controller\ContactController::delete" type="service" id=".service_locator.OnDAkJ5"/>
         <argument key="App\Controller\ContactController::edit" type="service" id=".service_locator.OnDAkJ5"/>
         <argument key="App\Controller\ContactController::show" type="service" id=".service_locator.OnDAkJ5"/>
@@ -5471,12 +5495,10 @@
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.g.xob4v"/>
         <argument key="App\Controller\TagController::delete" type="service" id=".service_locator.E.Wb5rc"/>
         <argument key="App\Controller\TagController::edit" type="service" id=".service_locator.E.Wb5rc"/>
-        <argument key="App\Controller\TagController::show" type="service" id=".service_locator.E.Wb5rc"/>
         <argument key="App\Controller\UserController::edit" type="service" id=".service_locator.H7g0zOn"/>
         <argument key="App\Controller\AdminController:edit" type="service" id=".service_locator.HYqik_K"/>
         <argument key="App\Controller\CategoryController:delete" type="service" id=".service_locator.BljtxGn"/>
         <argument key="App\Controller\CategoryController:edit" type="service" id=".service_locator.BljtxGn"/>
-        <argument key="App\Controller\CategoryController:show" type="service" id=".service_locator.BljtxGn"/>
         <argument key="App\Controller\ContactController:delete" type="service" id=".service_locator.OnDAkJ5"/>
         <argument key="App\Controller\ContactController:edit" type="service" id=".service_locator.OnDAkJ5"/>
         <argument key="App\Controller\ContactController:show" type="service" id=".service_locator.OnDAkJ5"/>
@@ -5487,7 +5509,6 @@
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.g.xob4v"/>
         <argument key="App\Controller\TagController:delete" type="service" id=".service_locator.E.Wb5rc"/>
         <argument key="App\Controller\TagController:edit" type="service" id=".service_locator.E.Wb5rc"/>
-        <argument key="App\Controller\TagController:show" type="service" id=".service_locator.E.Wb5rc"/>
         <argument key="App\Controller\UserController:edit" type="service" id=".service_locator.H7g0zOn"/>
       </argument>
     </service>
@@ -5596,6 +5617,22 @@
     </service>
     <service id="debug.security.voter.security.access.expression_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
       <argument type="service" id="security.access.expression_voter"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="debug.security.voter.App\Security\Voter\CategoryVoter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
+      <argument type="service" id="App\Security\Voter\CategoryVoter"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="debug.security.voter.App\Security\Voter\ContactVoter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
+      <argument type="service" id="App\Security\Voter\ContactVoter"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="debug.security.voter.App\Security\Voter\EventVoter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
+      <argument type="service" id="App\Security\Voter\EventVoter"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="debug.security.voter.App\Security\Voter\UserVoter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
+      <argument type="service" id="App\Security\Voter\UserVoter"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
     <service id="security.logout.handler.csrf_token_clearing" class="Symfony\Component\Security\Http\Logout\CsrfTokenClearingLogoutHandler" public="false">
@@ -5957,6 +5994,10 @@
         <argument type="service" id="debug.security.voter.security.access.authenticated_voter"/>
         <argument type="service" id="debug.security.voter.security.access.role_hierarchy_voter"/>
         <argument type="service" id="debug.security.voter.security.access.expression_voter"/>
+        <argument type="service" id="debug.security.voter.App\Security\Voter\CategoryVoter"/>
+        <argument type="service" id="debug.security.voter.App\Security\Voter\ContactVoter"/>
+        <argument type="service" id="debug.security.voter.App\Security\Voter\EventVoter"/>
+        <argument type="service" id="debug.security.voter.App\Security\Voter\UserVoter"/>
       </argument>
       <argument>affirmative</argument>
       <argument>false</argument>
@@ -5979,12 +6020,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.8DzytJj"/>
+      <argument type="service" id=".service_locator.oM8XT29"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.8DzytJj"/>
+      <argument type="service" id=".service_locator.oM8XT29"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6382,7 +6423,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.8DzytJj"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.oM8XT29"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

@@ -11,6 +11,7 @@
             <th>{{knp_pagination_sortable(pagination, 'label_id'|trans, 'contact.id')}}</th>
             <th>{{knp_pagination_sortable(pagination, 'label_name'|trans, 'contact.name')}}</th>
             <th>{{knp_pagination_sortable(pagination, 'label_surname'|trans, 'contact.surname')}}</th>
+            <th>{{knp_pagination_sortable(pagination, 'label_tags'|trans, 'contact.tag')}}</th>
             <th>{{'label_actions'|trans}}</th>
         </tr>
         </thead>
@@ -20,6 +21,17 @@
                 <td>{{ contact.id }}</td>
                 <td>{{ contact.name }}</td>
                 <td>{{ contact.surname }}</td>
+                {% if contact.tag is defined and contact.tag|length %}
+                    <td>
+                    {% for tag in contact.tag %}
+                        <a href="{{ url('contact_index', {'filters' : {'tag' : tag.id}}) }}" title="{{ tag.name }}">
+                            {{ tag.name}}
+                        </a>
+                    {% endfor %}
+                    </td>
+                {% else %}
+                    &nbsp;
+                {% endif %}
                 <td>
                     <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
                         <span><i class="fas fa-search"></i></span>

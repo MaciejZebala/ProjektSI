@@ -1,11 +1,15 @@
 <?php
+/**
+ * EventController
+ */
 
 namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventType;
-use App\Repository\EventRepository;
+use App\Service\CategoryService;
 use App\Service\EventService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,20 +23,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     /**
-     * Category service.
+     * Event service.
      *
      * @var \App\Service\EventService
      */
     private $eventService;
 
     /**
+     * Category service
+     *
+     * @var CategoryService
+     */
+    private $categoryService;
+
+    /**
      * CategoryController constructor.
      *
      * @param \App\Service\EventService $eventService Event service
      */
-    public function __construct(EventService $eventService)
+    public function __construct(EventService $eventService, CategoryService $categoryService)
     {
         $this->eventService = $eventService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -76,14 +88,19 @@ class EventController extends AbstractController
      *     name="event_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted(
+     *  "VIEW",
+     *  subject="event",
+     * )
      */
     public function show(Event $event): Response
     {
-            if($event->getUser()!==$this->getUser()){
-                $this->addFlash('warning', 'message.item_not_found');
+        if ($event->getUser() !== $this->getUser()) {
+            $this->addFlash('warning', 'message.item_not_found');
 
-                return $this->redirectToRoute('event_index');
-            }
+            return $this->redirectToRoute('event_index');
+        }
 
         $eventContact = $event->getContact();
         $eventTag = $event->getTag();
@@ -114,7 +131,7 @@ class EventController extends AbstractController
     public function create(Request $request): Response
     {
         $event = new Event();
-        $form = $this->createForm(EventType::class, $event);
+        $form = $this->createForm(EventType::class, $event, ['user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -149,6 +166,11 @@ class EventController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="event_edit",
      * )
+     *
+     *    @IsGranted(
+     *     "EDIT",
+     *     subject="event",
+     *     )
      */
     public function edit(Request $request, Event $event): Response
     {
@@ -189,6 +211,11 @@ class EventController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="event_delete",
      * )
+     *
+     *    @IsGranted(
+     *     "DELETE",
+     *     subject="event",
+     *     )
      */
     public function delete(Request $request, Event $event): Response
     {

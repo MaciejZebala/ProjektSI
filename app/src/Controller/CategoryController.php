@@ -10,6 +10,7 @@ use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,38 +66,6 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * Show action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
-     * @param \App\Entity\Category                      $category Category entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="category_show",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
-    public function show(Request $request, Category $category): Response
-    {
-        if($category->getUser()!==$this->getUser()){
-            $this->addFlash('warning', 'message.item_not_found');
-
-            return $this->redirectToRoute('category_index');
-        }
-
-        $page = $request->query->getInt('page', 1);
-        $pagination = $this->categoryService->createPaginatedShowList($page, $category->getEvents(), $this->getUser());
-
-        return $this->render(
-            'category/show.html.twig',
-            ['pagination' => $pagination]
-        );
-    }
-
-    /**
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
@@ -119,6 +88,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category->setUser($this->getUser());
             $this->categoryService->save($category);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -148,6 +118,11 @@ class CategoryController extends AbstractController
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="category_edit",
+     * )
+     *
+     * @IsGranted(
+     *  "EDIT",
+     *  subject="category",
      * )
      */
     public function edit(Request $request, Category $category): Response
@@ -188,6 +163,11 @@ class CategoryController extends AbstractController
      *     methods={"GET", "DELETE"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="category_delete",
+     * )
+     *
+     * @IsGranted(
+     *  "DELETE",
+     *  subject="category",
      * )
      */
     public function delete(Request $request, Category $category): Response

@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
- *
- * @UniqueEntity(fields={"title"})
  */
 class Category
 {
@@ -33,7 +31,7 @@ class Category
     /**
      * Title.
      *
-     * @var
+     * @var string
      *
      * @ORM\Column(
      *     type="string",

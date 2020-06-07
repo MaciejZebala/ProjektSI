@@ -11,6 +11,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\ContactRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class ContactService.
@@ -32,15 +33,23 @@ class ContactService
     private $paginator;
 
     /**
+     * Tag service.
+     *
+     * @var \App\Service\TagService
+     */
+    private $tagService;
+
+    /**
      * ContactService constructor.
      *
      * @param \App\Repository\ContactRepository       $contactRepository Contact repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator         Paginator
      */
-    public function __construct(ContactRepository $contactRepository, PaginatorInterface $paginator)
+    public function __construct(ContactRepository $contactRepository, PaginatorInterface $paginator, TagService $tagService)
     {
         $this->contactRepository = $contactRepository;
         $this->paginator = $paginator;
+        $this->tagService = $tagService;
     }
 
     /**
@@ -50,29 +59,26 @@ class ContactService
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
-    public function createPaginatedList(int $page): PaginationInterface
+    public function createPaginatedList(int $page, UserInterface $user, array $filters = []): PaginationInterface
     {
+        $filters = $this->prepareFilters($filters);
+
         return $this->paginator->paginate(
-            $this->contactRepository->queryAll(),
+            $this->contactRepository->queryByAuthor($user, $filters),
             $page,
             ContactRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
 
     /**
-     * Create paginated list.
+     * @param UserInterface $user
      *
-     * @param int $page Page number
-     *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return \Doctrine\ORM\QueryBuilder
+     * @return \App\Entity\Category|null Category entity
      */
-    public function createPaginatedShowList(int $page, $items): PaginationInterface
+    public function getUserCategories(UserInterface $user)
     {
-        return $this->paginator->paginate(
-            $items,
-            $page,
-            ContactRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        return $this->contactRepository->queryUserCategory($user)->getQuery()->getResult();
     }
 
     /**
@@ -99,5 +105,18 @@ class ContactService
     public function delete(Contact $contact): void
     {
         $this->contactRepository->delete($contact);
+    }
+
+    private function prepareFilters(array $filters): array
+    {
+        $resultFilters = [];
+        if (isset($filters['tag']) && is_numeric($filters['tag'])) {
+            $tag = $this->tagService->findOneById($filters['tag']);
+            if (null !== $tag) {
+                $resultFilters['tag'] = $tag;
+            }
+        }
+
+        return $resultFilters;
     }
 }

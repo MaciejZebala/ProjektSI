@@ -18,16 +18,10 @@
             <dd>{{ contact.phoneNumber }}</dd>
             <dt>{{ 'label_title'|trans }}</dt>
             <dd>{{ contact.email }}</dd>
-            {% if pagination is defined and pagination.items|length %}
-                <dt>{{ 'label_title'|trans }}</dt>
-                    {% for event in pagination.items %}
-                        <dd>{{ event.title }}</dd>
-                    {% endfor %}
-            {% else %}
-                <p>
-                    {{ 'message_item_not_found'|trans }}
-                </p>
-            {% endif %}
+            <dt>{{ 'label_tags'|trans }}</dt>
+            {% for tag in contact.tag %}
+                <dd>{{ tag.name }}</dd>
+            {% endfor %}
         </dl>
         <p>
             <a href="{{ url('contact_index') }}" title="{{ 'action_back'|trans }}">

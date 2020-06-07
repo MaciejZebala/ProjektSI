@@ -18,7 +18,7 @@
             <dd>{{ event.category.title}}</dd>
             <dt>{{ 'label_contact'|trans }}</dt>
             {% for contact in eventContact %}
-            <dd>{{contact.name}} {{ contact.surname }}</dd>
+            <dd><a href="{{ url('contact_show', {id: contact.id}) }}">{{contact.name}} {{ contact.surname }}</a></dd>
             {% endfor %}
             <dt>{{ 'label_tags'|trans }}</dt>
             {% for tag in eventTag %}

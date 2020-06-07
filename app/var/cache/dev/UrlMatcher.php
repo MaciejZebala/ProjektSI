@@ -48,27 +48,25 @@ return [
                 .'|/admin/([1-9]\\d*)/pass(*:191)'
                 .'|/c(?'
                     .'|ategory/(?'
-                        .'|([1-9]\\d*)(*:225)'
-                        .'|([1-9]\\d*)/edit(*:248)'
-                        .'|([1-9]\\d*)/delete(*:273)'
+                        .'|([1-9]\\d*)/edit(*:230)'
+                        .'|([1-9]\\d*)/delete(*:255)'
                     .')'
                     .'|ontact/(?'
-                        .'|([1-9]\\d*)(*:302)'
-                        .'|([1-9]\\d*)/edit(*:325)'
-                        .'|([1-9]\\d*)/delete(*:350)'
+                        .'|([1-9]\\d*)(*:284)'
+                        .'|([1-9]\\d*)/edit(*:307)'
+                        .'|([1-9]\\d*)/delete(*:332)'
                     .')'
                 .')'
                 .'|/event/(?'
-                    .'|([1-9]\\d*)(*:380)'
-                    .'|([1-9]\\d*)/edit(*:403)'
-                    .'|([1-9]\\d*)/delete(*:428)'
+                    .'|([1-9]\\d*)(*:362)'
+                    .'|([1-9]\\d*)/edit(*:385)'
+                    .'|([1-9]\\d*)/delete(*:410)'
                 .')'
                 .'|/tag/(?'
-                    .'|([1-9]\\d*)(*:455)'
-                    .'|([1-9]\\d*)/edit(*:478)'
-                    .'|([1-9]\\d*)/delete(*:503)'
+                    .'|([1-9]\\d*)/edit(*:442)'
+                    .'|([1-9]\\d*)/delete(*:467)'
                 .')'
-                .'|/user/([1-9]\\d*)/edit(*:533)'
+                .'|/user/([1-9]\\d*)/edit(*:497)'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes
@@ -80,19 +78,17 @@ return [
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
         191 => [[['_route' => 'admin_user_edit', '_controller' => 'App\\Controller\\AdminController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
-        225 => [[['_route' => 'category_show', '_controller' => 'App\\Controller\\CategoryController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        248 => [[['_route' => 'category_edit', '_controller' => 'App\\Controller\\CategoryController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
-        273 => [[['_route' => 'category_delete', '_controller' => 'App\\Controller\\CategoryController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
-        302 => [[['_route' => 'contact_show', '_controller' => 'App\\Controller\\ContactController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        325 => [[['_route' => 'contact_edit', '_controller' => 'App\\Controller\\ContactController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
-        350 => [[['_route' => 'contact_delete', '_controller' => 'App\\Controller\\ContactController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
-        380 => [[['_route' => 'event_show', '_controller' => 'App\\Controller\\EventController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        403 => [[['_route' => 'event_edit', '_controller' => 'App\\Controller\\EventController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
-        428 => [[['_route' => 'event_delete', '_controller' => 'App\\Controller\\EventController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
-        455 => [[['_route' => 'tag_show', '_controller' => 'App\\Controller\\TagController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        478 => [[['_route' => 'tag_edit', '_controller' => 'App\\Controller\\TagController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
-        503 => [[['_route' => 'tag_delete', '_controller' => 'App\\Controller\\TagController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
-        533 => [
+        230 => [[['_route' => 'category_edit', '_controller' => 'App\\Controller\\CategoryController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
+        255 => [[['_route' => 'category_delete', '_controller' => 'App\\Controller\\CategoryController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
+        284 => [[['_route' => 'contact_show', '_controller' => 'App\\Controller\\ContactController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        307 => [[['_route' => 'contact_edit', '_controller' => 'App\\Controller\\ContactController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
+        332 => [[['_route' => 'contact_delete', '_controller' => 'App\\Controller\\ContactController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
+        362 => [[['_route' => 'event_show', '_controller' => 'App\\Controller\\EventController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        385 => [[['_route' => 'event_edit', '_controller' => 'App\\Controller\\EventController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
+        410 => [[['_route' => 'event_delete', '_controller' => 'App\\Controller\\EventController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
+        442 => [[['_route' => 'tag_edit', '_controller' => 'App\\Controller\\TagController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null]],
+        467 => [[['_route' => 'tag_delete', '_controller' => 'App\\Controller\\TagController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, false, null]],
+        497 => [
             [['_route' => 'user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'PUT' => 1], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],

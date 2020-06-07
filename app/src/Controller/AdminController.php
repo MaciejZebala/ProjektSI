@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Service\AdminService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class AdminController
- * @package App\Controller
  *
  * @Route("/admin")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class AdminController extends AbstractController
 {
@@ -60,6 +62,12 @@ class AdminController extends AbstractController
     }
 
     /**
+     * User Edit Password
+     *
+     * @param Request $request HTTP Request
+     * @param UserPasswordEncoderInterface $passwordEncoder Password Encoder
+     * @param User $user User Entity
+     *
      * @return Response
      *
      * @Route(

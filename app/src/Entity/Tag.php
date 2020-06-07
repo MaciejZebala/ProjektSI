@@ -52,22 +52,14 @@ class Tag
     /**
      * Events
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Event[]    $events Events
-     *
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="tag")
-     *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $events;
 
     /**
      * Contacts
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Contact[]    $contacts Contacts
-     *
      * @ORM\ManyToMany(targetEntity=Contact::class, mappedBy="tag")
-     *
-     * @Assert\Type(type="Doctrine\Common\Collections\ArrayCollection")
      */
     private $contacts;
 

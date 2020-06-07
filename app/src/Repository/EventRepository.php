@@ -111,22 +111,6 @@ class EventRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
-//    /**
-//     * Query tasks by author.
-//     *
-//     * @param array            $filters Filters array
-//     *
-//     * @return \Doctrine\ORM\QueryBuilder Query builder
-//     */
-//    public function queryByAuthor(array $filters = []): QueryBuilder
-//    {
-//        $queryBuilder = $this->queryAll($filters);
-//        $queryBuilder->andWhere('task.author = :author')
-//            ->setParameter('author', $user);
-//
-//        return $queryBuilder;
-//    }
-
     /**
      * Apply filters to paginated list.
      *

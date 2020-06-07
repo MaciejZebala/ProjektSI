@@ -1,4 +1,7 @@
 <?php
+/**
+ * HomePage Controller
+ */
 namespace App\Controller;
 
 use App\Service\HomePageService;
@@ -29,9 +32,12 @@ class HomePageController extends AbstractController
     {
         $this->homePageService = $homePageService;
     }
+
 /**
 * Index Action.
-*
+ *
+ * @param Request $request HTTP Request
+ *
 * @return \Symfony\Component\HttpFoundation\Response HTTP response
 *
 * @Route(
@@ -46,7 +52,7 @@ class HomePageController extends AbstractController
         $nextThreeDays = date('Y-m-d', strtotime('+3 day'));
         $page = $request->query->getInt('page', 1);
         $paginationCurrent = $this->homePageService->createPaginatedCurrentList($page, $this->getUser(), $dateObj);
-        $paginationComing = $this->homePageService->createPaginatedComingList($page, $this->getUser() , $dateObj, $nextThreeDays);
+        $paginationComing = $this->homePageService->createPaginatedComingList($page, $this->getUser(), $dateObj, $nextThreeDays);
 
         return $this->render('home_page/index.html.twig', [
             'paginationComing' => $paginationComing,

@@ -10,6 +10,7 @@ use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use App\Service\ContactService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +43,7 @@ class ContactController extends AbstractController
     /**
      * Index Action.
      *
-     * @param
+     * @param Request $request HTTP Request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -56,7 +57,7 @@ class ContactController extends AbstractController
     {
         $page = $request->query->getInt('page', 1);
 
-        $pagination = $this->contactService->createPaginatedList($page);
+        $pagination = $this->contactService->createPaginatedList($page, $this->getUser(), $request->query->getAlnum('filters', []));
 
         return $this->render('contact/index.html.twig', [
             'pagination' => $pagination,
@@ -76,22 +77,23 @@ class ContactController extends AbstractController
      *     name="contact_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted(
+     *  "VIEW",
+     *  subject="contact",
+     * )
      */
-    public function show(Request $request, Contact $contact): Response
+    public function show(Contact $contact): Response
     {
-        if($contact->getUser()!==$this->getUser()){
+        if ($contact->getUser() !== $this->getUser()) {
             $this->addFlash('warning', 'message.item_not_found');
 
             return $this->redirectToRoute('contact_index');
         }
 
-        $page = $request->query->getInt('page', 1);
-        $pagination = $this->contactService->createPaginatedShowList($page, $contact->getEvents());
-
         return $this->render(
             'contact/show.html.twig',
             [
-                'pagination' => $pagination,
                 'contact' => $contact,
             ]
         );
@@ -120,6 +122,7 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $contact->setUser($this->getUser());
             $this->contactService->save($contact);
             $this->addFlash('success', 'message_created_successfully');
 
@@ -148,6 +151,11 @@ class ContactController extends AbstractController
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="contact_edit",
+     * )
+     *
+     * @IsGranted(
+     *  "EDIT",
+     *  subject="contact",
      * )
      */
     public function edit(Request $request, Contact $contact): Response
@@ -188,6 +196,11 @@ class ContactController extends AbstractController
      *     methods={"GET", "DELETE"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="contact_delete",
+     * )
+     *
+     * @IsGranted(
+     *  "DELETE",
+     *  subject="contact",
      * )
      */
     public function delete(Request $request, Contact $contact): Response
