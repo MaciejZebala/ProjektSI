@@ -15,7 +15,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  Class Category.
  *
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
- * @ORM\Table(name="categories")
+ * @ORM\Table(
+ *     name="categories",
+ *     uniqueConstraints={
+ *          @ORM\UniqueConstraint(
+ *              name="title_user_idx",
+ *              columns={"title", "user"},
+ *          )
+ *     }
+ *     )
+ *
+ * @UniqueEntity(
+ *     fields={"title", "user"},
+ *     )
  */
 class Category
 {
@@ -65,6 +77,9 @@ class Category
      */
     private $user;
 
+    /**
+     * Category constructor.
+     */
     public function __construct()
     {
         $this->events = new ArrayCollection();

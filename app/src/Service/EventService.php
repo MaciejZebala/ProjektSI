@@ -64,8 +64,9 @@ class EventService
     /**
      * Create paginated list.
      *
-     * @param int   $page    Page number
-     * @param array $filters Filters array
+     * @param int           $page    Page number
+     * @param UserInterface $user
+     * @param array         $filters Filters array
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */

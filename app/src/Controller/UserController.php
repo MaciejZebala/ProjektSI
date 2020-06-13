@@ -7,15 +7,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserPasswordType;
-use App\Repository\UserRepository;
+use App\Service\UserService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class UserController.
@@ -24,6 +22,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserController extends AbstractController
 {
+    /**
+     * User service.
+     *
+     * @var \App\Service\UserService
+     */
+    private $userService;
+
+    /**
+     * UserController constructor.
+     *
+     * @param \App\Service\UserService $userService User service
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * @return Response
      *
@@ -42,9 +57,9 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
-     * @param \App\Entity\Category                      $category Category entity
-     * @
+     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
+     * @param \App\Entity\User                          $user            User entity
+     * @param UserPasswordEncoderInterface              $passwordEncoder Password Encoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -59,11 +74,11 @@ class UserController extends AbstractController
      * )
      *
      * @IsGranted(
-     *  "EDIT",
-     *  subject="user",
+     *     "EDIT",
+     *     subject="user",
      * )
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(UserPasswordType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -72,9 +87,7 @@ class UserController extends AbstractController
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
-            $userRepository->save($user);
-
-//            $this->adminService->save($user);
+            $this->userService->save($user);
 
             $this->addFlash('success', 'message.registered_successfully');
 

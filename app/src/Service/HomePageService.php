@@ -44,7 +44,9 @@ class HomePageService
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int           $page Page number
+     * @param UserInterface $user
+     * @param string        $date
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
@@ -60,7 +62,10 @@ class HomePageService
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int           $page              Page number
+     * @param UserInterface $user
+     * @param string        $dateToday
+     * @param string        $dateNextThreeDays
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */

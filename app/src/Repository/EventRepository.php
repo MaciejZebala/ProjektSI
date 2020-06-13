@@ -12,6 +12,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -45,6 +46,8 @@ class EventRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
+     * @param array $filters Filters array
+     *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
     public function queryAll(array $filters = []): QueryBuilder
@@ -66,6 +69,9 @@ class EventRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
+     * @param Date $dateObj
+     * @param User $user
+     *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
     public function getCurrentEvents($dateObj, User $user): QueryBuilder
@@ -80,6 +86,10 @@ class EventRepository extends ServiceEntityRepository
 
     /**
      * Query all records.
+     *
+     * @param Date $dateObj
+     * @param Date $nextThreeDays
+     * @param User $user
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
@@ -97,7 +107,8 @@ class EventRepository extends ServiceEntityRepository
     /**
      * Query tasks by author.
      *
-     * @param \App\Entity\User $user User entity
+     * @param \App\Entity\User $user    User entity
+     * @param array            $filters Filters array
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
@@ -107,29 +118,6 @@ class EventRepository extends ServiceEntityRepository
 
         $queryBuilder->andWhere('event.user = :author')
             ->setParameter('author', $user);
-
-        return $queryBuilder;
-    }
-
-    /**
-     * Apply filters to paginated list.
-     *
-     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
-     * @param array                      $filters      Filters array
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
-    {
-        if (isset($filters['category']) && $filters['category'] instanceof Category) {
-            $queryBuilder->andWhere('category = :category')
-                ->setParameter('category', $filters['category']);
-        }
-
-        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
-            $queryBuilder->andWhere('tag IN (:tag)')
-                ->setParameter('tag', $filters['tag']);
-        }
 
         return $queryBuilder;
     }
@@ -163,6 +151,29 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
+     * Apply filters to paginated list.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     * @param array                      $filters      Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['category']) && $filters['category'] instanceof Category) {
+            $queryBuilder->andWhere('category = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tag IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
@@ -173,10 +184,6 @@ class EventRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('event');
     }
-
-    // /**
-    //  * @return Event[] Returns an array of Event objects
-    //  */
 
 //    public function findByExampleField($value)
 //    {

@@ -1,8 +1,12 @@
 <?php
+/**
+ * Event Voter
+ */
 
 namespace App\Security\Voter;
 
 use App\Entity\Event;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
@@ -10,7 +14,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class EventVoter
- * @package App\Security\Voter
  */
 class EventVoter extends Voter
 {
@@ -51,8 +54,9 @@ class EventVoter extends Voter
      * Perform a single access check operation on a given attribute, subject and token.
      * It is safe to assume that $attribute and $subject already passed the "supports()" method check.
      *
-     * @param string $attribute
-     * @param mixed  $subject
+     * @param string         $attribute
+     * @param mixed          $subject
+     * @param TokenInterface $token
      *
      * @return bool
      */

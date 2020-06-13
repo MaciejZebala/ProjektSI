@@ -46,7 +46,8 @@ class CategoryService
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int           $page Page number
+     * @param UserInterface $user
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
@@ -60,10 +61,11 @@ class CategoryService
     }
 
     /**
+     * Get User Categories
+     *
      * @param UserInterface $user
      *
      * @return \Doctrine\ORM\QueryBuilder
-     * @return \App\Entity\Category|null Category entity
      */
     public function getUserCategories(UserInterface $user)
     {

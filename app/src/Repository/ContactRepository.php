@@ -1,4 +1,7 @@
 <?php
+/**
+ * Contact Repository
+ */
 
 namespace App\Repository;
 
@@ -40,6 +43,8 @@ class ContactRepository extends ServiceEntityRepository
 
     /**
      * Query all records.
+     *
+     * @param array $filters
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */

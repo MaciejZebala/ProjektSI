@@ -1,18 +1,38 @@
 <?php
+/**
+ * User Voter
+ */
 
 namespace App\Security\Voter;
 
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class UserVoter
- * @package App\Security\Voter
  */
 class UserVoter extends Voter
 {
+    /**
+     * Security helper.
+     *
+     * @var \Symfony\Component\Security\Core\Security
+     */
+    private $security;
+
+    /**
+     * OrderVoter constructor.
+     *
+     * @param \Symfony\Component\Security\Core\Security $security Security helper
+     */
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * Determines if the attribute and subject are supported by this voter.
      *
@@ -25,7 +45,7 @@ class UserVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['POST_EDIT', 'POST_VIEW'])
+        return in_array($attribute, ['VIEW', 'EDIT', 'DELETE'])
             && $subject instanceof User;
     }
 
@@ -33,8 +53,9 @@ class UserVoter extends Voter
      * Perform a single access check operation on a given attribute, subject and token.
      * It is safe to assume that $attribute and $subject already passed the "supports()" method check.
      *
-     * @param string $attribute
-     * @param mixed  $subject
+     * @param string         $attribute
+     * @param mixed          $subject
+     * @param TokenInterface $token
      *
      * @return bool
      */
@@ -51,7 +72,7 @@ class UserVoter extends Voter
             case 'VIEW':
             case 'EDIT':
             case 'DELETE':
-                if ($subject->getUser() === $user) {
+                if ($subject === $user) {
                     return true;
                 }
                 break;

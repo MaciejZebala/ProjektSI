@@ -1,4 +1,7 @@
 <?php
+/**
+ * User Repository
+ */
 
 namespace App\Repository;
 
@@ -31,8 +34,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     const PAGINATOR_ITEMS_PER_PAGE = 3;
 
+
     /**
-     * @param string $entityClass The class name of the entity this repository manages
+     * UserRepository Constructor
+     *
+     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -51,19 +57,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('user');
-    }
-
-    /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     *
+     * @param UserInterface $user
+     * @param string        $newEncodedPassword
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -88,6 +85,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $this->_em->persist($user);
         $this->_em->flush($user);
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('user');
     }
 
     // /**

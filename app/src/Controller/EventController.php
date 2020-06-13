@@ -11,6 +11,7 @@ use App\Service\CategoryService;
 use App\Service\EventService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +40,8 @@ class EventController extends AbstractController
     /**
      * CategoryController constructor.
      *
-     * @param \App\Service\EventService $eventService Event service
+     * @param \App\Service\EventService $eventService    Event service
+     * @param CategoryService           $categoryService
      */
     public function __construct(EventService $eventService, CategoryService $categoryService)
     {
@@ -219,7 +221,7 @@ class EventController extends AbstractController
      */
     public function delete(Request $request, Event $event): Response
     {
-        $form = $this->createForm(EventType::class, $event, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $event, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {

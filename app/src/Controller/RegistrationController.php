@@ -28,7 +28,7 @@ class RegistrationController extends AbstractController
     /**
      * RegistrationController constructor.
      *
-     * @param \App\Service\RegistrationService $registartionService Registration service
+     * @param \App\Service\RegistrationService $registrationService Registration service
      */
     public function __construct(RegistrationService $registrationService)
     {

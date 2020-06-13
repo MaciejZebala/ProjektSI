@@ -70,6 +70,22 @@
                 <source>label_category</source>
                 <target>Kategoria</target>
             </trans-unit>
+            <trans-unit id="login_label">
+                <source>login_label</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="password_label">
+                <source>password_label</source>
+                <target>Hasło</target>
+            </trans-unit>
+             <trans-unit id="sign_in_label">
+                 <source>sign_in_label</source>
+                 <target>Zaloguj</target>
+             </trans-unit>
+            <trans-unit id="register_label">
+                <source>register_label</source>
+                <target>Zarejestruj</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

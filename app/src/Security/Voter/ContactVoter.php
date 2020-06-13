@@ -1,4 +1,7 @@
 <?php
+/**
+ * Contact Voter
+ */
 
 namespace App\Security\Voter;
 
@@ -9,7 +12,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class ContactVoter
- * @package App\Security\Voter
  */
 class ContactVoter extends Voter
 {
@@ -25,7 +27,7 @@ class ContactVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['VIEW', 'EDIT', 'POST'])
+        return in_array($attribute, ['VIEW', 'EDIT', 'DELETE'])
             && $subject instanceof Contact;
     }
 
@@ -33,8 +35,9 @@ class ContactVoter extends Voter
      * Perform a single access check operation on a given attribute, subject and token.
      * It is safe to assume that $attribute and $subject already passed the "supports()" method check.
      *
-     * @param string $attribute
-     * @param mixed  $subject
+     * @param string         $attribute
+     * @param mixed          $subject
+     * @param TokenInterface $token
      *
      * @return bool
      */

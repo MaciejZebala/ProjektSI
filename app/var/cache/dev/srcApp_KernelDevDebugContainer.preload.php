@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerAfLtuNu/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerGhLNNxQ/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -44,6 +44,7 @@ $classes[] = 'App\Service\RegistrationService';
 $classes[] = 'App\Controller\SecurityController';
 $classes[] = 'App\Controller\TagController';
 $classes[] = 'App\Controller\UserController';
+$classes[] = 'App\Service\UserService';
 $classes[] = 'App\Form\CategoryType';
 $classes[] = 'App\Form\ContactType';
 $classes[] = 'App\Form\DataTransformer\TagsDataTransformer';
@@ -152,7 +153,6 @@ $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter
 $classes[] = 'App\Security\Voter\CategoryVoter';
 $classes[] = 'App\Security\Voter\ContactVoter';
 $classes[] = 'App\Security\Voter\EventVoter';
-$classes[] = 'Symfony\Component\Security\Core\Security';
 $classes[] = 'App\Security\Voter\UserVoter';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\Voter\ExpressionVoter';
@@ -385,6 +385,7 @@ $classes[] = 'Symfony\Component\Security\Http\Firewall\LogoutListener';
 $classes[] = 'Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler';
 $classes[] = 'Symfony\Component\Security\Http\Logout\CsrfTokenClearingLogoutHandler';
 $classes[] = 'Symfony\Component\Security\Http\Logout\SessionLogoutHandler';
+$classes[] = 'Symfony\Component\Security\Core\Security';
 $classes[] = 'Symfony\Component\Security\Http\Logout\LogoutUrlGenerator';
 $classes[] = 'Symfony\Component\Security\Core\Encoder\UserPasswordEncoder';
 $classes[] = 'Symfony\Component\Security\Http\RememberMe\ResponseListener';

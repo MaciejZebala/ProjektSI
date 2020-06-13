@@ -1,6 +1,6 @@
 <?php
 /**
- * Registration service.
+ * User service.
  */
 
 namespace App\Service;
@@ -9,9 +9,9 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 
 /**
- * Class RegistrationService.
+ * Class UserService.
  */
-class RegistrationService
+class UserService
 {
     /**
      * User repository.
@@ -23,8 +23,6 @@ class RegistrationService
      * Paginator.
      *
      * @param UserRepository $userRepository
-     *
-     * @var \Knp\Component\Pager\PaginatorInterface
      */
     public function __construct(UserRepository $userRepository)
     {

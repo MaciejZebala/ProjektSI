@@ -32,6 +32,12 @@ class UserFixtures extends AbstractBaseFixtures implements FixtureGroupInterface
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
     public static function getGroups(): array
     {
         return ['group1', 'group2'];

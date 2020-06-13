@@ -64,9 +64,9 @@ class AdminController extends AbstractController
     /**
      * User Edit Password
      *
-     * @param Request $request HTTP Request
+     * @param Request                      $request         HTTP Request
      * @param UserPasswordEncoderInterface $passwordEncoder Password Encoder
-     * @param User $user User Entity
+     * @param User                         $user            User Entity
      *
      * @return Response
      *

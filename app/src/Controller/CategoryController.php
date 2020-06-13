@@ -84,11 +84,11 @@ class CategoryController extends AbstractController
     public function create(Request $request): Response
     {
         $category = new Category();
+        $category->setUser($this->getUser());
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $category->setUser($this->getUser());
             $this->categoryService->save($category);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -172,12 +172,6 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category): Response
     {
-        if ($category->getEvents()->count()) {
-            $this->addFlash('warning', 'message_category_contains_tasks');
-
-            return $this->redirectToRoute('category_index');
-        }
-
         $form = $this->createForm(FormType::class, $category, ['method' => 'DELETE']);
         $form->handleRequest($request);
 

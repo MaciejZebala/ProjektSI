@@ -69,8 +69,6 @@ class Event
      *
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
-     *
-     *
      */
     private $category;
 
@@ -86,7 +84,7 @@ class Event
     /**
      * Tag
      *
-     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="events")
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="events", orphanRemoval=true)
      * @ORM\JoinTable(name="events_tags")
      */
     private $tag;

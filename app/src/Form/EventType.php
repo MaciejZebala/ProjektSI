@@ -13,7 +13,6 @@ use App\Service\CategoryService;
 use App\Service\ContactService;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,14 +31,26 @@ class EventType extends AbstractType
      */
     private $tagsDataTransformer;
 
+    /**
+     * Category Service.
+     *
+     * @var CategoryService
+     */
     private $categoryService;
 
+    /**
+     * Contact Service
+     *
+     * @var ContactService
+     */
     private $contactService;
 
     /**
      * EventType constructor.
      *
      * @param \App\Form\DataTransformer\TagsDataTransformer $tagsDataTransformer Tags data transformer
+     * @param CategoryService                               $categoryService
+     * @param ContactService                                $contactService
      */
     public function __construct(TagsDataTransformer $tagsDataTransformer, CategoryService $categoryService, ContactService $contactService)
     {

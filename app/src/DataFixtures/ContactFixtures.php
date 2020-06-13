@@ -1,4 +1,7 @@
 <?php
+/**
+ * Contact Fixtures
+ */
 
 namespace App\DataFixtures;
 

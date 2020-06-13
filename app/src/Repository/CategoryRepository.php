@@ -1,4 +1,7 @@
 <?php
+/**
+ * Category Repository
+ */
 
 namespace App\Repository;
 

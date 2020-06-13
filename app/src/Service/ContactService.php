@@ -5,9 +5,7 @@
 
 namespace App\Service;
 
-use App\Entity\Category;
 use App\Entity\Contact;
-use App\Repository\CategoryRepository;
 use App\Repository\ContactRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -44,6 +42,7 @@ class ContactService
      *
      * @param \App\Repository\ContactRepository       $contactRepository Contact repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator         Paginator
+     * @param TagService                              $tagService        Tag Service
      */
     public function __construct(ContactRepository $contactRepository, PaginatorInterface $paginator, TagService $tagService)
     {
@@ -55,7 +54,9 @@ class ContactService
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int           $page    Page number
+     * @param UserInterface $user
+     * @param array         $filters
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
@@ -74,7 +75,6 @@ class ContactService
      * @param UserInterface $user
      *
      * @return \Doctrine\ORM\QueryBuilder
-     * @return \App\Entity\Category|null Category entity
      */
     public function getUserCategories(UserInterface $user)
     {
@@ -107,6 +107,11 @@ class ContactService
         $this->contactRepository->delete($contact);
     }
 
+    /**
+     * @param array $filters
+     *
+     * @return array
+     */
     private function prepareFilters(array $filters): array
     {
         $resultFilters = [];
