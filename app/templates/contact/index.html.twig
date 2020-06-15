@@ -1,18 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{'title_event_list'|trans}}{% endblock %}
+{% block title %}{{'title_contact_list'|trans}}{% endblock %}
 
 {% block body %}
+<div class="table-wrapper">
     {% if pagination is defined and pagination.items|length %}
-        <h1>{{ 'title_event_list'|trans }}</h1>
-        <table class="table table-striped table-dark">
+        <h1>{{ 'title_contact_list'|trans }}</h1>
+        <table class="table table-hover table-light table-responsive-lg">
         <thead class="thead-light">
         <tr>
             <th>{{knp_pagination_sortable(pagination, 'label_id'|trans, 'contact.id')}}</th>
             <th>{{knp_pagination_sortable(pagination, 'label_name'|trans, 'contact.name')}}</th>
             <th>{{knp_pagination_sortable(pagination, 'label_surname'|trans, 'contact.surname')}}</th>
             <th>{{knp_pagination_sortable(pagination, 'label_tags'|trans, 'contact.tag')}}</th>
-            <th>{{'label_actions'|trans}}</th>
+            <th>{{'label_show'|trans}}</th>
+            <th>{{'label_edit'|trans}}</th>
+            <th>{{'label_delete'|trans}}</th>
         </tr>
         </thead>
         <tbody>
@@ -36,9 +39,13 @@
                     <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
                         <span><i class="fas fa-search"></i></span>
                     </a>
+                </td>
+                <td>
                     <a href="{{ url('contact_edit', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
                         <span><i class="far fa-edit"></i></span>
                     </a>
+                </td>
+                <td>
                     <a href="{{ url('contact_delete', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
                         <span><i class="fas fa-trash-alt"></i></span>
                     </a>
@@ -48,7 +55,7 @@
         </tbody>
         </table>
         <div class="category">
-            <a href="{{ url('contact_create') }}" title="Dodaj">Dodaj Kontakt</a>
+            <a class="btn btn-lg btn-primary mt-3 btn-light" href="{{ url('contact_create') }}" title="Dodaj">{{'add_contact_label'|trans}}</a>
         </div>
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
@@ -58,4 +65,5 @@
             {{ 'message_empty_list'|trans }}
         </p>
     {% endif %}
+</div>
 {% endblock %}

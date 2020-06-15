@@ -133,11 +133,12 @@ class EventController extends AbstractController
     public function create(Request $request): Response
     {
         $event = new Event();
+        $event->setUser($this->getUser());
+
         $form = $this->createForm(EventType::class, $event, ['user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $event->setUser($this->getUser());
             $this->eventService->save($event);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -176,7 +177,8 @@ class EventController extends AbstractController
      */
     public function edit(Request $request, Event $event): Response
     {
-        $form = $this->createForm(EventType::class, $event, ['method' => 'PUT']);
+
+        $form = $this->createForm(EventType::class, $event, ['method' => 'PUT', 'user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

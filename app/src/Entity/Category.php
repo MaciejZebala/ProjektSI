@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     uniqueConstraints={
  *          @ORM\UniqueConstraint(
  *              name="title_user_idx",
- *              columns={"title", "user"},
+ *              columns={"title", "user"}
  *          )
  *     }
  *     )

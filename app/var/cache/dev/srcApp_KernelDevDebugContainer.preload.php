@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerGhLNNxQ/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerPEAJezM/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -39,6 +39,7 @@ $classes[] = 'App\Controller\EventController';
 $classes[] = 'App\Service\EventService';
 $classes[] = 'App\Controller\HomePageController';
 $classes[] = 'App\Service\HomePageService';
+$classes[] = 'App\Controller\RedirectToRouteController';
 $classes[] = 'App\Controller\RegistrationController';
 $classes[] = 'App\Service\RegistrationService';
 $classes[] = 'App\Controller\SecurityController';

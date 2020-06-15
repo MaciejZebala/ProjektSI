@@ -12,6 +12,7 @@ use App\Service\ContactService;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -118,11 +119,11 @@ class ContactController extends AbstractController
     public function create(Request $request): Response
     {
         $contact = new Contact();
+        $contact->setUser($this->getUser());
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $contact->setUser($this->getUser());
             $this->contactService->save($contact);
             $this->addFlash('success', 'message_created_successfully');
 
@@ -205,7 +206,7 @@ class ContactController extends AbstractController
      */
     public function delete(Request $request, Contact $contact): Response
     {
-        $form = $this->createForm(ContactType::class, $contact, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $contact, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {

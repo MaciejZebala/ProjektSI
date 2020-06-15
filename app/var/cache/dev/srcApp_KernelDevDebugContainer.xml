@@ -386,6 +386,13 @@
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\HomePageController"/>
       </call>
     </service>
+    <service id="App\Controller\RedirectToRouteController" class="App\Controller\RedirectToRouteController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\RedirectToRouteController"/>
+      </call>
+    </service>
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -1763,6 +1770,8 @@
             <argument>C:\xampp\htdocs\ProjektSI\app\vendor\symfony\security-core/Resources/translations\security.pl.xlf</argument>
             <argument>C:\xampp\htdocs\ProjektSI\app\vendor\knplabs\knp-paginator-bundle/translations\KnpPaginatorBundle.pl.xliff</argument>
             <argument>C:\xampp\htdocs\ProjektSI\app/translations\messages.pl.xlf</argument>
+            <argument>C:\xampp\htdocs\ProjektSI\app/translations\security.pl.xlf</argument>
+            <argument>C:\xampp\htdocs\ProjektSI\app/translations\validators.pl.xlf</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>C:\xampp\htdocs\ProjektSI\app\vendor\symfony\validator/Resources/translations\validators.pt.xlf</argument>
@@ -5171,6 +5180,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\HomePageController" class="App\Controller\HomePageController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\HomePageController" class="App\Controller\HomePageController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\HomePageController" class="App\Controller\HomePageController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RedirectToRouteController" class="App\Controller\RedirectToRouteController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RedirectToRouteController" class="App\Controller\RedirectToRouteController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\RedirectToRouteController" class="App\Controller\RedirectToRouteController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5843,6 +5855,12 @@
     <service id=".service_locator.vdmMuyE.App\Controller\HomePageController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\HomePageController"/>
       <argument>App\Controller\HomePageController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\RedirectToRouteController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\RedirectToRouteController"/>
+      <argument>App\Controller\RedirectToRouteController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>

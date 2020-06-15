@@ -32,6 +32,7 @@ return [
     'event_edit' => [['id'], ['_controller' => 'App\\Controller\\EventController::edit'], ['id' => '[1-9]\\d*'], [['text', '/edit'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/event']], [], []],
     'event_delete' => [['id'], ['_controller' => 'App\\Controller\\EventController::delete'], ['id' => '[1-9]\\d*'], [['text', '/delete'], ['variable', '/', '[1-9]\\d*', 'id'], ['text', '/event']], [], []],
     'home_page_index' => [[], ['_controller' => 'App\\Controller\\HomePageController::index'], [], [['text', '/home/']], [], []],
+    'redirect_to_login' => [[], ['_controller' => 'App\\Controller\\RedirectToRouteController::index'], [], [['text', '/']], [], []],
     'user_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::index'], [], [['text', '/register']], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], []],

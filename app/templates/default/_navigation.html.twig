@@ -11,30 +11,30 @@
                     <a class="nav-link" href="{{url('home_page_index')}}">Home <span><i class="fas fa-home"></i></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('category_index') }}">Kategorie</a>
+                    <a class="nav-link" href="{{ url('category_index') }}">{{'label_category'|trans}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('event_index') }}">Wydarzenia</a>
+                    <a class="nav-link" href="{{ url('event_index') }}">{{'label_event'|trans}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('contact_index') }}">Kontakty</a>
+                    <a class="nav-link" href="{{ url('contact_index') }}">{{'label_contact'|trans}}</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('tag_index') }}">Tagi</a>
+                    <a class="nav-link" href="{{ url('tag_index') }}">{{'label_tags'|trans}}</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('user_index')}}">Moje Konto</a>
+                    <a class="nav-link" href="{{url('user_index')}}">{{'title_user'|trans}}</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('admin_user')}}">Panel Admina</a>
+                    <a class="nav-link" href="{{url('admin_user')}}">{{'label_admin'|trans}}</a>
                 </li>
                 {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li class="nav-item ml-5">
-                    <a class="nav-link" href="{{url('app_logout')}}">Wyloguj</a>
+                    <a class="nav-link" href="{{url('app_logout')}}">{{ 'label_logout'|trans }}</a>
                 </li>
                 {% endif %}
             </ul>

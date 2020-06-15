@@ -1,30 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_event_details'}}
+    {{ 'title_user'|trans}}
 {% endblock %}
 
 {% block body %}
+    <div class="user-wrapper">
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-    <div>{{ app.user.email}}</div>
-
-{#    {% if user is defined and user|length %}#}
-{#        <dl class="dl-horizontal">#}
-{#            <dt>{{ 'label_id'|trans }}</dt>#}
-{#            <dd>{{ user }}</dd>#}
-{#        </dl>#}
-{#        <p>#}
-{#            <a href="{{ url('event_index') }}" title="{{ 'action_back'|trans }}">#}
-{#                {{ 'action_back'|trans }}#}
-{#            </a>#}
-{#        </p>#}
-        <a href="{{ url('user_edit', {id: app.user.id}) }}" title="{{ 'action_view'|trans }}">
-            <span><i class="far fa-edit"></i></span>
+    <h2>{{ 'hello_label'|trans }}</h2>
+        <h2 class="user">{{ app.user.email}}</h2>
+        <a class="btn btn-lg btn-primary mt-3 btn-light" href="{{ url('user_edit', {id: app.user.id}) }}" title="{{ 'action_view'|trans }}">
+            {{ 'edit_data_label'|trans }}
         </a>
     {% endif %}
-{#    {% else %}#}
-        <p>
-            {{ 'message_item_not_found'|trans }}
-        </p>
-{#    {% endif %}#}
+    </div>
 {% endblock %}

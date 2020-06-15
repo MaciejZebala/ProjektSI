@@ -1,30 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_event_details'|trans({'%id%': contact.id}) }}
+    {{ 'title_contact_details'|trans({'%id%': contact.id}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_event_details'|trans({'%id%': contact.id|default('')}) }}</h1>
+    <div class="detail-wrapper">
+    <h1>{{ 'title_contact_details'|trans({'%id%': contact.id|default('')}) }}</h1>
     {% if contact is defined and contact|length %}
         <dl class="dl-horizontal">
             <dt>{{ 'label_id'|trans }}</dt>
             <dd>{{ contact.id }}</dd>
-            <dt>{{ 'label_date'|trans }}</dt>
+            <dt>{{ 'label_name'|trans }}</dt>
             <dd>{{ contact.name }}</dd>
-            <dt>{{ 'label_title'|trans }}</dt>
+            <dt>{{ 'label_surname'|trans }}</dt>
             <dd>{{ contact.surname }}</dd>
-            <dt>{{ 'label_title'|trans }}</dt>
+            <dt>{{ 'label_phone_number'|trans }}</dt>
             <dd>{{ contact.phoneNumber }}</dd>
-            <dt>{{ 'label_title'|trans }}</dt>
+            <dt>{{ 'label_email'|trans }}</dt>
             <dd>{{ contact.email }}</dd>
             <dt>{{ 'label_tags'|trans }}</dt>
+            <div class="scroll-wrapper">
             {% for tag in contact.tag %}
                 <dd>{{ tag.name }}</dd>
             {% endfor %}
+            </div>
         </dl>
         <p>
-            <a href="{{ url('contact_index') }}" title="{{ 'action_back'|trans }}">
+            <a class="btn btn-lg btn-primary mt-3" href="{{ url('contact_index') }}" title="{{ 'action_back'|trans }}">
                 {{ 'action_back'|trans }}
             </a>
         </p>
@@ -33,4 +36,5 @@
             {{ 'message_item_not_found'|trans }}
         </p>
     {% endif %}
+    </div>
 {% endblock %}
