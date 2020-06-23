@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     uniqueConstraints={
  *          @ORM\UniqueConstraint(
  *              name="title_user_idx",
- *              columns={"title", "user"}
+ *              columns={"title"}
  *          )
  *     }
  *     )
@@ -66,6 +66,9 @@ class Category
      *
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="category")
      *
+     * @Assert\All({
+     *     @Assert\Type(type="App\Entity\Event"),
+     * })
      */
     private $events;
 

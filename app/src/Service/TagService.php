@@ -58,6 +58,32 @@ class TagService
     }
 
     /**
+     * Save category.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Tag $tag): void
+    {
+        $this->tagRepository->save($tag);
+    }
+
+    /**
+     * Delete category.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Tag $tag): void
+    {
+        $this->tagRepository->delete($tag);
+    }
+
+    /**
      * Find tag by Id.
      *
      * @param int $id Tag Id

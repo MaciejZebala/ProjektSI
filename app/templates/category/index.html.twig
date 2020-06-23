@@ -36,9 +36,6 @@
             {% endfor %}
             </tbody>
         </table>
-        <div class="category">
-            <a class="btn btn-lg btn-primary mt-3 btn-light" href="{{ url('category_create') }}" title="Dodaj">{{'add_category_label'|trans}}</a>
-        </div>
         <div class="navigation text-center d-flex justify-content-center">
             {{ knp_pagination_render(pagination) }}
         </div>
@@ -47,6 +44,9 @@
             {{ 'message_empty_list'|trans }}
         </p>
     {% endif %}
+    <div class="category">
+        <a class="btn btn-lg btn-primary mt-3 btn-light" href="{{ url('category_create') }}" title="Dodaj">{{'add_category_label'|trans}}</a>
+    </div>
 </div>
 {% endblock %}
 

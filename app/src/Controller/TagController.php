@@ -11,6 +11,7 @@ use App\Repository\TagRepository;
 use App\Service\TagService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -161,7 +162,7 @@ class TagController extends AbstractController
      */
     public function delete(Request $request, Tag $tag): Response
     {
-        $form = $this->createForm(TagType::class, $tag, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $tag, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {

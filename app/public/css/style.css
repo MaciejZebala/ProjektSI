@@ -20,7 +20,6 @@ div.form-wrapper {
     transform: translate(-50%, -50%);
     padding: 20px;
     background-color: white;
-    overflow-y:auto;
 }
 
 .form-wrapper h1{

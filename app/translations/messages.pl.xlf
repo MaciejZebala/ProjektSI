@@ -254,6 +254,26 @@
                    <source>title_category_create</source>
                    <target>Stwórz Kategorie</target>
                </trans-unit>
+               <trans-unit id="Year">
+                   <source>Year</source>
+                   <target>Rok</target>
+               </trans-unit>
+               <trans-unit id="Day">
+                   <source>Day</source>
+                   <target>Dzień</target>
+               </trans-unit>
+               <trans-unit id="Month">
+                   <source>Month</source>
+                   <target>Miesiąc</target>
+               </trans-unit>
+               <trans-unit id="message.registered_successfully">
+                   <source>message.registered_successfully</source>
+                   <target>Zarejestrowano Pomyślnie</target>
+               </trans-unit>
+               <trans-unit id="message.password_change_successfully">
+                   <source>message.password_change_successfully</source>
+                   <target>Hasło zmienione pomyślnie</target>
+               </trans-unit>
         </body>
     </file>
 </xliff>

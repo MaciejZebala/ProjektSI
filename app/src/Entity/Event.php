@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Event
@@ -41,6 +42,8 @@ class Event
      *
      * @ORM\Column(type="date")
      *
+     * @Gedmo\Timestampable(on="create")
+     *
      * @Assert\DateTime
      */
     private $date;
@@ -68,7 +71,6 @@ class Event
      * Category
      *
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $category;
 

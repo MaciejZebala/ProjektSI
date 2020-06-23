@@ -89,7 +89,7 @@ class UserController extends AbstractController
 
             $this->userService->save($user);
 
-            $this->addFlash('success', 'message.registered_successfully');
+            $this->addFlash('success', 'message.password_change_successfully');
 
             return $this->redirectToRoute('user_index');
         }

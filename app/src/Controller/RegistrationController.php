@@ -39,7 +39,11 @@ class RegistrationController extends AbstractController
      *
      * Register action
      *
-     * @Route("/register", name="user_register")
+     * @Route(
+     *     "/register",
+     *     name="user_register",
+     *     methods={"GET", "POST"}
+     *     )
      *
      * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder
@@ -48,19 +52,22 @@ class RegistrationController extends AbstractController
      */
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home_page_index');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-                $user->setPassword($password);
-                $user->setRoles(['ROLE_USER']);
-                $this->registrationService->save($user);
-                $this->addFlash('success', 'message.registered_successfully');
+        $form->handleRequest($request);
 
-                return $this->redirectToRoute('app_login');
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+            $user->setRoles(['ROLE_USER']);
+            $this->registrationService->save($user);
+            $this->addFlash('success', 'message.registered_successfully');
+
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render(

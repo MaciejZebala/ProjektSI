@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerPEAJezM/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerRjJDs7p/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -23,6 +23,7 @@ $classes[] = 'Symfony\Bundle\MakerBundle\MakerBundle';
 $classes[] = 'Symfony\Bundle\WebServerBundle\WebServerBundle';
 $classes[] = 'Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle';
 $classes[] = 'Knp\Bundle\PaginatorBundle\KnpPaginatorBundle';
+$classes[] = 'Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle';
 $classes[] = 'Symfony\Component\HttpClient\TraceableHttpClient';
 $classes[] = 'Symfony\Contracts\HttpClient\HttpClientInterface';
 $classes[] = 'Symfony\Component\HttpClient\HttpClient';
@@ -179,6 +180,8 @@ $classes[] = 'Doctrine\DBAL\Configuration';
 $classes[] = 'Doctrine\DBAL\Logging\LoggerChain';
 $classes[] = 'Symfony\Bridge\Doctrine\Logger\DbalLogger';
 $classes[] = 'Symfony\Bridge\Doctrine\ContainerAwareEventManager';
+$classes[] = 'Gedmo\Timestampable\TimestampableListener';
+$classes[] = 'Gedmo\Sluggable\SluggableListener';
 $classes[] = 'Doctrine\DBAL\Logging\DebugStack';
 $classes[] = 'Doctrine\Bundle\DoctrineBundle\Command\Proxy\EnsureProductionSettingsDoctrineCommand';
 $classes[] = 'Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand';

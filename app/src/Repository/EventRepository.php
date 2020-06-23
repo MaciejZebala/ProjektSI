@@ -58,7 +58,7 @@ class EventRepository extends ServiceEntityRepository
                 'partial category.{id, title}',
                 'partial tag.{id, name}'
             )
-            ->join('event.category', 'category')
+            ->leftJoin('event.category', 'category')
             ->leftJoin('event.tag', 'tag')
             ->orderBy('event.date', 'DESC');
         $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);

@@ -101,6 +101,7 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
             'Symfony\\Bridge\\PhpUnit\\' => 23,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
+            'Stof\\DoctrineExtensionsBundle\\' => 30,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
             'SensioLabs\\Security\\' => 20,
         ),
@@ -131,6 +132,10 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
         array (
             'Knp\\Component\\' => 14,
             'Knp\\Bundle\\PaginatorBundle\\' => 27,
+        ),
+        'G' => 
+        array (
+            'Gedmo\\' => 6,
         ),
         'F' => 
         array (
@@ -163,6 +168,10 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
         array (
             'Composer\\XdebugHandler\\' => 23,
             'Composer\\Semver\\' => 16,
+        ),
+        'B' => 
+        array (
+            'Behat\\Transliterator\\' => 21,
         ),
         'A' => 
         array (
@@ -450,6 +459,10 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
         array (
             0 => __DIR__ . '/..' . '/symfony/doctrine-bridge',
         ),
+        'Stof\\DoctrineExtensionsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle',
+        ),
         'Sensio\\Bundle\\FrameworkExtraBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src',
@@ -521,6 +534,10 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
         'Knp\\Bundle\\PaginatorBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src',
+        ),
+        'Gedmo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gedmo/doctrine-extensions/lib/Gedmo',
         ),
         'Faker\\' => 
         array (
@@ -604,6 +621,10 @@ class ComposerStaticInit417c649b893a7d5a839cab2f4bc7e2f6
         'Composer\\Semver\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
+        ),
+        'Behat\\Transliterator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator',
         ),
         'App\\Tests\\' => 
         array (

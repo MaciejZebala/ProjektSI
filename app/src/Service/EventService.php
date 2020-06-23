@@ -82,7 +82,7 @@ class EventService
     }
 
     /**
-     * Save category.
+     * Save Event.
      *
      * @param \App\Entity\Event $event Event entity
      *
@@ -95,7 +95,7 @@ class EventService
     }
 
     /**
-     * Delete category.
+     * Delete Event.
      *
      * @param \App\Entity\Event $event Event entity
      *

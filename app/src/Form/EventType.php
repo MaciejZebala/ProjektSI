@@ -79,6 +79,7 @@ class EventType extends AbstractType
             [
                 'label' => 'label_date',
                 'required' => true,
+                'format' => 'dd-MM-yyyy',
                 'attr' => ['max_length' => 64],
             ]
         );

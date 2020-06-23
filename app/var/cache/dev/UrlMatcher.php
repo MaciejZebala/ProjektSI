@@ -22,7 +22,7 @@ return [
         '/event/create' => [[['_route' => 'event_create', '_controller' => 'App\\Controller\\EventController::create'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/home' => [[['_route' => 'home_page_index', '_controller' => 'App\\Controller\\HomePageController::index'], null, ['GET' => 0], null, true, false, null]],
         '/' => [[['_route' => 'redirect_to_login', '_controller' => 'App\\Controller\\RedirectToRouteController::index'], null, ['GET' => 0], null, false, false, null]],
-        '/register' => [[['_route' => 'user_register', '_controller' => 'App\\Controller\\RegistrationController::index'], null, null, null, false, false, null]],
+        '/register' => [[['_route' => 'user_register', '_controller' => 'App\\Controller\\RegistrationController::index'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
         '/tag' => [[['_route' => 'tag_index', '_controller' => 'App\\Controller\\TagController::index'], null, ['GET' => 0], null, true, false, null]],
