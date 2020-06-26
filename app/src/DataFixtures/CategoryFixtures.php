@@ -15,6 +15,13 @@ use Doctrine\Persistence\ObjectManager;
 class CategoryFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
+     * Tags that were already added.
+     *
+     * @var array
+     */
+    private $values = [];
+
+    /**
      * Load data.
      *
      * @param \Doctrine\Persistence\ObjectManager $manager Object manager
@@ -23,7 +30,9 @@ class CategoryFixtures extends AbstractBaseFixtures implements DependentFixtureI
     {
         $this->createMany(10, 'categories', function ($i) {
             $category = new Category();
-            $category->setTitle($this->faker->word);
+            $newWord = $this->faker->unique()->word;
+            $this->values[] = $newWord;
+            $category->setTitle($newWord);
             $category->setUser($this->getRandomReference('users'));
 
             return $category;

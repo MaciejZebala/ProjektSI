@@ -13,6 +13,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Class CategoryRepository
+ *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
  * @method Category[]    findAll()
@@ -73,6 +75,8 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
+     * Query user category
+     *
      * @param UserInterface $user
      *
      * @return QueryBuilder

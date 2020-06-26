@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{'title_event_list'|trans}}{% endblock %}
+{% block title %}{{'title_tag_list'|trans}}{% endblock %}
 
 {% block body %}
 <div class="table-wrapper">
     {% if pagination is defined and pagination.items|length %}
-        <h1>{{ 'title_event_list'|trans }}</h1>
+        <h1>{{ 'title_tag_list'|trans }}</h1>
         <table class="table table-hover table-light table-responsive-lg">
             <thead class="thead-light">
             <tr>
                 <th>{{knp_pagination_sortable(pagination, 'label_id'|trans, 'tag.id')}}</th>
-                <th>{{knp_pagination_sortable(pagination, 'label_name'|trans, 'tag.name')}}</th>
+                <th>{{knp_pagination_sortable(pagination, 'label_tags'|trans, 'tag.name')}}</th>
                 <th>{{'label_edit'|trans}}</th>
                 <th>{{'label_delete'|trans}}</th>
             </tr>

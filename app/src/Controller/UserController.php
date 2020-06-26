@@ -40,6 +40,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * Index Action
+     *
      * @return Response
      *
      * @Route("/", name="user_index")

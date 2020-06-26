@@ -18,9 +18,18 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Class Event
  *
  * @ORM\Entity(repositoryClass=EventRepository::class)
- * @ORM\Table("events")
+ * @ORM\Table(name="events",
+ *     uniqueConstraints={
+ *          @ORM\UniqueConstraint(
+ *              name="title_user_idx",
+ *              columns={"title"}
+ *          )
+ *     }
+ *     )
  *
- * @UniqueEntity(fields={"title"})
+ * @UniqueEntity(
+ *     fields={"title", "user"},
+ *     )
  */
 class Event
 {

@@ -72,6 +72,8 @@ class ContactService
     }
 
     /**
+     * Get user categories
+     *
      * @param UserInterface $user
      *
      * @return \Doctrine\ORM\QueryBuilder
@@ -108,6 +110,8 @@ class ContactService
     }
 
     /**
+     * Prepare filters
+     *
      * @param array $filters
      *
      * @return array

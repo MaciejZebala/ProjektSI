@@ -13,6 +13,8 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Class ContactRepository
+ *
  * @method Contact|null find($id, $lockMode = null, $lockVersion = null)
  * @method Contact|null findOneBy(array $criteria, array $orderBy = null)
  * @method Contact[]    findAll()
@@ -64,6 +66,8 @@ class ContactRepository extends ServiceEntityRepository
     }
 
     /**
+     * Query tasks by author.
+     *
      * @param User  $user
      * @param array $filters
      *
@@ -81,6 +85,8 @@ class ContactRepository extends ServiceEntityRepository
     }
 
     /**
+     * Query user conatact
+     *
      * @param User $user
      *
      * @return QueryBuilder
